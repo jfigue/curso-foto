@@ -1,0 +1,2049 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Enfoque</title>
+<meta name="description" content="Curso de fotografía para Galaxy S25+, de cero a experto.">
+<meta name="theme-color" content="#0d0f12">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<style>
+*,*::before,*::after{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#0d0f12; --surface:#15191e; --elev:#1d232a; --elev2:#252d36;
+  --border:#2b333d; --border-soft:#222931;
+  --text:#e9edf2; --muted:#98a3b0; --faint:#6b7684;
+  --accent:#f0a72a; --accent-ink:#1a1204;
+  --teal:#38b2a6;
+  --n1:#4ec97e; --n2:#4aa8f0; --n3:#f0873f; --n4:#ef5d6b;
+  --ok:#4ec97e; --warn:#f0a72a; --bad:#ef5d6b;
+  --r:14px; --rs:10px;
+  --safe-b:env(safe-area-inset-bottom,0px);
+  --safe-t:env(safe-area-inset-top,0px);
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+:root[data-theme="light"]{
+  --bg:#f6f7f9; --surface:#ffffff; --elev:#ffffff; --elev2:#eef1f5;
+  --border:#d8dee6; --border-soft:#e6eaf0;
+  --text:#14181d; --muted:#5b6672; --faint:#8a95a2;
+  --accent:#b9780a; --accent-ink:#fff;
+}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--text); font-family:var(--font);
+  font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img,canvas{max-width:100%;display:block}
+button{font-family:inherit;font-size:inherit;color:inherit;cursor:pointer}
+a{color:var(--accent)}
+
+/* ---------- layout ---------- */
+#app{min-height:100vh;min-height:100dvh;padding-bottom:calc(74px + var(--safe-b))}
+.topbar{
+  position:sticky;top:0;z-index:50;background:rgba(13,15,18,.86);
+  backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);
+  border-bottom:1px solid var(--border-soft);
+  padding:calc(10px + var(--safe-t)) 16px 10px;
+  display:flex;align-items:center;gap:12px;min-height:56px;
+}
+:root[data-theme="light"] .topbar{background:rgba(246,247,249,.9)}
+.topbar h1{font-size:17px;margin:0;font-weight:650;letter-spacing:-.01em;flex:1;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.iconbtn{
+  background:var(--elev);border:1px solid var(--border);border-radius:10px;
+  width:36px;height:36px;display:grid;place-items:center;flex:0 0 auto;font-size:15px;padding:0
+}
+.iconbtn:active{background:var(--elev2)}
+.wrap{padding:16px;max-width:760px;margin:0 auto}
+.page{display:none}
+.page.on{display:block;animation:fade .22s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* ---------- bottom nav ---------- */
+.nav{
+  position:fixed;left:0;right:0;bottom:0;z-index:60;
+  background:rgba(21,25,30,.94);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-top:1px solid var(--border);
+  display:flex;padding:6px 4px calc(6px + var(--safe-b));
+}
+:root[data-theme="light"] .nav{background:rgba(255,255,255,.95)}
+.nav button{
+  flex:1;background:none;border:0;padding:7px 2px;border-radius:12px;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  font-size:10.5px;color:var(--faint);font-weight:600;letter-spacing:.01em;
+}
+.nav button .ic{font-size:19px;line-height:1}
+.nav button.on{color:var(--accent)}
+
+/* ---------- generic ---------- */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin:0 0 12px}
+.card.pad0{padding:0;overflow:hidden}
+h2{font-size:20px;margin:22px 0 10px;letter-spacing:-.015em;font-weight:680}
+h3{font-size:16px;margin:18px 0 8px;font-weight:650}
+p{margin:0 0 11px}
+ul,ol{margin:0 0 11px;padding-left:22px}
+li{margin:0 0 6px}
+small{font-size:13px;color:var(--muted)}
+.muted{color:var(--muted)}
+.tiny{font-size:12.5px;line-height:1.5;color:var(--muted)}
+hr{border:0;border-top:1px solid var(--border-soft);margin:18px 0}
+code{background:var(--elev2);padding:1px 6px;border-radius:6px;font-size:13.5px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.pill{
+  display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:650;
+  padding:3px 9px;border-radius:999px;background:var(--elev2);color:var(--muted);
+  border:1px solid var(--border);letter-spacing:.02em;
+}
+.pill.n1{color:var(--n1);border-color:color-mix(in srgb,var(--n1) 40%,transparent)}
+.pill.n2{color:var(--n2);border-color:color-mix(in srgb,var(--n2) 40%,transparent)}
+.pill.n3{color:var(--n3);border-color:color-mix(in srgb,var(--n3) 40%,transparent)}
+.pill.n4{color:var(--n4);border-color:color-mix(in srgb,var(--n4) 40%,transparent)}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  background:var(--accent);color:var(--accent-ink);border:0;border-radius:11px;
+  padding:12px 16px;font-weight:680;font-size:14.5px;width:100%;
+}
+.btn:active{filter:brightness(.93)}
+.btn.ghost{background:var(--elev);color:var(--text);border:1px solid var(--border)}
+.btn.sm{padding:9px 12px;font-size:13.5px;width:auto}
+.row{display:flex;gap:9px;flex-wrap:wrap}
+.row>.btn{flex:1;width:auto}
+
+/* ---------- tables ---------- */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 0 12px;
+  border:1px solid var(--border);border-radius:var(--rs)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:100%}
+th,td{padding:9px 11px;text-align:left;border-bottom:1px solid var(--border-soft);vertical-align:top}
+th{background:var(--elev2);font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;
+  color:var(--muted);font-weight:700;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td strong{font-weight:650}
+
+/* ---------- progress ---------- */
+.bar{height:6px;background:var(--elev2);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--teal));
+  border-radius:99px;transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.hero{
+  background:
+    radial-gradient(120% 90% at 85% 0%, color-mix(in srgb,var(--accent) 22%,transparent), transparent 62%),
+    radial-gradient(110% 80% at 8% 100%, color-mix(in srgb,var(--teal) 16%,transparent), transparent 60%),
+    var(--surface);
+  border:1px solid var(--border);border-radius:18px;padding:18px;margin-bottom:16px
+}
+.hero .k{font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.hero .big{font-size:29px;font-weight:720;letter-spacing:-.025em;margin:6px 0 2px;line-height:1.1}
+.stats{display:flex;gap:8px;margin-top:14px}
+.stat{flex:1;background:color-mix(in srgb,var(--bg) 45%,transparent);border:1px solid var(--border-soft);
+  border-radius:11px;padding:9px 10px;text-align:center}
+.stat b{display:block;font-size:19px;font-weight:700;letter-spacing:-.02em}
+.stat span{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;font-weight:650}
+
+/* ---------- lesson list ---------- */
+.lvl{margin:22px 0 10px;display:flex;align-items:center;gap:9px}
+.lvl .dot{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+.lvl h2{margin:0;font-size:15px;letter-spacing:.02em;text-transform:uppercase;font-weight:700}
+.lvl small{margin-left:auto;font-size:12px;white-space:nowrap}
+.les{
+  display:flex;gap:12px;align-items:center;width:100%;text-align:left;
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--rs);
+  padding:12px 13px;margin-bottom:8px;
+}
+.les:active{background:var(--elev)}
+.les .num{
+  flex:0 0 auto;width:31px;height:31px;border-radius:9px;background:var(--elev2);
+  display:grid;place-items:center;font-size:13px;font-weight:700;color:var(--muted)
+}
+.les.done .num{background:color-mix(in srgb,var(--ok) 22%,transparent);color:var(--ok)}
+.les .t{flex:1;min-width:0}
+.les .t b{display:block;font-size:14.5px;font-weight:620;letter-spacing:-.01em;line-height:1.35}
+.les .t span{font-size:12px;color:var(--faint)}
+.les .go{color:var(--faint);font-size:17px;flex:0 0 auto}
+.les.soon{opacity:.62}
+
+/* ---------- lesson detail ---------- */
+.sec{margin:0 0 14px;border:1px solid var(--border);border-radius:var(--r);background:var(--surface);overflow:hidden}
+.sec>summary{
+  padding:14px 15px;font-weight:660;font-size:14.5px;cursor:pointer;list-style:none;
+  display:flex;align-items:center;gap:10px;
+}
+.sec>summary::-webkit-details-marker{display:none}
+.sec>summary .ic{font-size:16px}
+.sec>summary::after{content:"▾";margin-left:auto;color:var(--faint);font-size:12px;transition:transform .2s}
+.sec[open]>summary::after{transform:rotate(180deg)}
+.sec[open]>summary{border-bottom:1px solid var(--border-soft)}
+.secbody{padding:15px}
+.eng{
+  background:color-mix(in srgb,var(--teal) 11%,transparent);
+  border:1px solid color-mix(in srgb,var(--teal) 32%,transparent);
+  border-radius:var(--rs);padding:13px 14px;margin:14px 0
+}
+.eng .h{font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;font-weight:750;
+  color:var(--teal);margin-bottom:7px;display:flex;align-items:center;gap:6px}
+.eng p:last-child,.eng ul:last-child{margin-bottom:0}
+.note{
+  background:color-mix(in srgb,var(--accent) 12%,transparent);
+  border-left:3px solid var(--accent);border-radius:8px;padding:11px 13px;margin:13px 0;font-size:14px
+}
+.note.warn{background:color-mix(in srgb,var(--bad) 12%,transparent);border-left-color:var(--bad)}
+.note p:last-child{margin-bottom:0}
+.steps{counter-reset:s;list-style:none;padding:0;margin:0}
+.steps li{counter-increment:s;position:relative;padding:0 0 13px 38px;margin:0}
+.steps li::before{
+  content:counter(s);position:absolute;left:0;top:0;width:26px;height:26px;border-radius:8px;
+  background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;
+  font-size:12.5px;font-weight:750
+}
+.steps li::after{content:"";position:absolute;left:12.5px;top:29px;bottom:2px;width:1px;background:var(--border)}
+.steps li:last-child::after{display:none}
+.path{
+  display:inline-block;background:var(--elev2);border:1px solid var(--border);
+  border-radius:7px;padding:2px 8px;font-size:13px;font-weight:600;margin:2px 0
+}
+.vid{
+  display:block;background:var(--elev);border:1px solid var(--border);border-radius:var(--rs);
+  padding:12px 13px;margin-bottom:9px;text-decoration:none;color:var(--text)
+}
+.vid b{display:block;font-size:14px;font-weight:640;line-height:1.35;margin-bottom:4px}
+.vid .meta{font-size:12px;color:var(--muted)}
+.vid .look{font-size:13px;margin-top:7px;color:var(--text)}
+.searchbox{
+  background:var(--elev2);border:1px dashed var(--border);border-radius:var(--rs);
+  padding:11px 13px;margin-bottom:9px;font-size:13.5px
+}
+.searchbox .q{font-family:ui-monospace,Menlo,monospace;font-size:13px;display:block;
+  background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:7px 9px;margin:7px 0 0}
+.ck{display:flex;gap:11px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--border-soft)}
+.ck:last-child{border-bottom:0}
+.ck input{width:21px;height:21px;flex:0 0 auto;margin:1px 0 0;accent-color:var(--accent)}
+.ck label{flex:1;font-size:14px;line-height:1.45}
+.ck input:checked+label{color:var(--muted);text-decoration:line-through}
+
+/* ---------- tools ---------- */
+.toolcard{
+  display:flex;gap:13px;align-items:center;width:100%;text-align:left;
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  padding:14px;margin-bottom:10px
+}
+.toolcard:active{background:var(--elev)}
+.toolcard .em{font-size:25px;flex:0 0 auto;width:44px;height:44px;border-radius:12px;
+  background:var(--elev2);display:grid;place-items:center}
+.toolcard .t b{display:block;font-size:15px;font-weight:640}
+.toolcard .t span{font-size:12.5px;color:var(--muted);line-height:1.4;display:block;margin-top:2px}
+.ctl{margin:0 0 15px}
+.ctl .lab{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;
+  font-weight:640;margin-bottom:7px;gap:10px}
+.ctl .lab span{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:700;
+  font-family:ui-monospace,Menlo,monospace;font-size:13.5px}
+input[type=range]{
+  -webkit-appearance:none;appearance:none;width:100%;height:28px;background:transparent;margin:0
+}
+input[type=range]::-webkit-slider-runnable-track{height:5px;background:var(--elev2);border-radius:99px;border:1px solid var(--border)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;
+  background:var(--accent);border:3px solid var(--bg);margin-top:-10.5px;box-shadow:0 1px 5px rgba(0,0,0,.5)}
+input[type=range]::-moz-range-track{height:5px;background:var(--elev2);border-radius:99px}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--accent);border:3px solid var(--bg)}
+.seg{display:flex;gap:6px;background:var(--elev2);border:1px solid var(--border);
+  border-radius:11px;padding:4px;margin:0 0 14px;overflow-x:auto}
+.seg button{flex:1;background:none;border:0;border-radius:8px;padding:8px 10px;
+  font-size:13px;font-weight:640;color:var(--muted);white-space:nowrap}
+.seg button.on{background:var(--accent);color:var(--accent-ink)}
+.cv{width:100%;border-radius:var(--rs);border:1px solid var(--border);background:#000;display:block}
+.readout{display:flex;gap:8px;margin:12px 0}
+.readout div{flex:1;background:var(--elev);border:1px solid var(--border);border-radius:10px;
+  padding:9px;text-align:center}
+.readout b{display:block;font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
+.readout span{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;font-weight:650}
+.verdict{border-radius:10px;padding:11px 13px;margin:12px 0;font-size:13.5px;font-weight:600;
+  border:1px solid var(--border);background:var(--elev)}
+.verdict.ok{border-color:color-mix(in srgb,var(--ok) 45%,transparent);
+  background:color-mix(in srgb,var(--ok) 13%,transparent)}
+.verdict.warn{border-color:color-mix(in srgb,var(--warn) 45%,transparent);
+  background:color-mix(in srgb,var(--warn) 13%,transparent)}
+.verdict.bad{border-color:color-mix(in srgb,var(--bad) 45%,transparent);
+  background:color-mix(in srgb,var(--bad) 13%,transparent)}
+.sw{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.sw .s{flex:1;min-width:66px;border-radius:10px;border:1px solid var(--border);overflow:hidden;
+  background:var(--elev)}
+.sw .s .c{height:56px}
+.sw .s .n{font-size:10px;padding:5px 4px;text-align:center;font-family:ui-monospace,Menlo,monospace;
+  color:var(--muted);letter-spacing:-.02em}
+.filein{
+  border:1px dashed var(--border);border-radius:var(--rs);padding:22px 14px;text-align:center;
+  background:var(--elev);font-size:14px;color:var(--muted);margin-bottom:12px;display:block
+}
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 13px}
+.chip{background:var(--elev2);border:1px solid var(--border);border-radius:99px;padding:7px 13px;
+  font-size:12.5px;font-weight:640;color:var(--muted)}
+.chip.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+textarea{
+  width:100%;background:var(--elev);border:1px solid var(--border);border-radius:10px;
+  color:var(--text);padding:11px;font-family:inherit;font-size:14px;line-height:1.5;resize:vertical
+}
+select,input[type=number]{
+  background:var(--elev);border:1px solid var(--border);border-radius:9px;color:var(--text);
+  padding:9px 10px;font-family:inherit;font-size:14px;width:100%
+}
+.grade{display:flex;gap:9px;align-items:center;margin-bottom:9px}
+.grade select{flex:1}
+.toast{
+  position:fixed;left:50%;transform:translateX(-50%) translateY(120%);
+  bottom:calc(88px + var(--safe-b));background:var(--elev2);color:var(--text);
+  border:1px solid var(--border);border-radius:11px;padding:11px 17px;font-size:13.5px;font-weight:620;
+  z-index:200;transition:transform .3s cubic-bezier(.2,.9,.2,1);box-shadow:0 8px 28px rgba(0,0,0,.45);
+  max-width:90vw;text-align:center
+}
+.toast.on{transform:translateX(-50%) translateY(0)}
+.empty{text-align:center;padding:40px 18px;color:var(--muted)}
+.empty .em{font-size:40px;margin-bottom:10px}
+@media(min-width:620px){
+  .wrap{padding:22px}
+  .hero .big{font-size:33px}
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="topbar">
+    <button class="iconbtn" id="back" style="display:none" aria-label="Volver">‹</button>
+    <h1 id="title">Enfoque</h1>
+    <button class="iconbtn" id="theme" aria-label="Tema">◐</button>
+  </div>
+
+  <div class="page on" id="p-curso"><div class="wrap" id="v-curso"></div></div>
+  <div class="page" id="p-leccion"><div class="wrap" id="v-leccion"></div></div>
+  <div class="page" id="p-tools"><div class="wrap" id="v-tools"></div></div>
+  <div class="page" id="p-tool"><div class="wrap" id="v-tool"></div></div>
+  <div class="page" id="p-estado"><div class="wrap" id="v-estado"></div></div>
+
+  <nav class="nav">
+    <button data-go="curso" class="on"><span class="ic">📚</span>Curso</button>
+    <button data-go="tools"><span class="ic">🎛️</span>Herramientas</button>
+    <button data-go="estado"><span class="ic">📊</span>Estado</button>
+  </nav>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+/* ============================================================
+   ENFOQUE — Curso de fotografía para Galaxy S25+
+   Datos del curso
+   ============================================================ */
+
+const PHONE = {
+  lentes: [
+    ['Principal (1x)','50 MP','f/1.8','24 mm','1/1.56"','Sí (OIS)'],
+    ['Ultra gran angular (0.6x)','12 MP','f/2.2','13 mm','1/2.55"','No — foco fijo'],
+    ['Teleobjetivo (3x)','10 MP','f/2.4','67 mm','1/3.94"','Sí (OIS)'],
+    ['Frontal','12 MP','f/2.2','26 mm','1/3.2"','No, pero tiene autofoco']
+  ]
+};
+
+const LEVELS = [
+  {id:1, name:'Nivel 1 · Básico',     sub:'Fundamentos',            color:'n1'},
+  {id:2, name:'Nivel 2 · Intermedio', sub:'Luz, color y modos',     color:'n2'},
+  {id:3, name:'Nivel 3 · Avanzado',   sub:'Control manual',         color:'n3'},
+  {id:4, name:'Nivel 4 · Experto',    sub:'Integración y estilo',   color:'n4'}
+];
+
+/* Nota de rigor: los enlaces de video son los que aparecieron en búsquedas
+   reales. Cuando no pude confirmar canal o duración, lo digo explícitamente.
+   Nunca hay un enlace inventado. */
+
+const LESSONS = [
+/* ================= NIVEL 1 ================= */
+{
+n:1, lvl:1, ready:true,
+title:'Conoce tu S25+',
+dur:'1 semana',
+obj:'Identificar los cuatro lentes de tu teléfono, saber cuál usar, entender la interfaz de la app Camera, y sostener el teléfono de forma estable y limpia.',
+teoria:`
+<p>Tu S25+ no tiene "una cámara": tiene <strong>cuatro cámaras físicas distintas</strong>, cada una con su propio sensor y su propio lente de vidrio. Cuando tocas "0.6x", "1x" o "3x" en la pantalla, no estás acercando nada: estás <strong>cambiando de cámara</strong>, como un fotógrafo que cambia de objetivo.</p>
+
+<p>La analogía: imaginá tres ventanas en una pared. Una es panorámica y muestra toda la calle (ultra gran angular). Otra es una ventana normal, parecida a lo que ve tu ojo (principal). La tercera es un catalejo empotrado que muestra sólo la casa de enfrente, pero grande (teleobjetivo). No hay una "mejor" ventana: hay una adecuada para cada cosa que quieras mostrar.</p>
+
+<h3>Los cuatro lentes de tu teléfono</h3>
+<div class="tw"><table>
+<thead><tr><th>Lente</th><th>Resolución</th><th>Apertura</th><th>Focal equiv.</th><th>Sensor</th><th>Estabilizador</th></tr></thead>
+<tbody id="tbl-lentes"></tbody>
+</table></div>
+
+<p><strong>Dos avisos importantes antes de seguir:</strong></p>
+<ul>
+<li><strong>El "2x" no es un lente.</strong> Es un recorte del centro del sensor principal de 50 MP. Samsung lo llama "calidad óptica" porque el recorte de un sensor tan grande da resultados muy buenos, pero físicamente sigue siendo un recorte. El único zoom óptico real de tu teléfono es el <strong>3x</strong>.</li>
+<li><strong>El ultra gran angular no enfoca.</strong> Tiene foco fijo: todo lo que esté a más de unos 30 o 40 cm sale nítido, pero no podés hacer primeros planos con él. Es una limitación de hardware, no un ajuste que puedas cambiar.</li>
+</ul>
+
+<h3>Lo que más mejora tus fotos, y es gratis</h3>
+<p>Antes que cualquier ajuste: <strong>el lente está sucio</strong>. Tu teléfono vive en un bolsillo. Una capa invisible de grasa de los dedos hace exactamente lo que hace un filtro difusor: baja el contraste, apaga los colores y, a contraluz, provoca esos destellos lechosos que arruinan la foto. Limpiar el vidrio con la parte de la remera o con un paño de microfibra, cada vez, antes de disparar, mejora más tus fotos que cualquier cosa que aprendas en este curso.</p>
+
+<h3>Cómo sostener el teléfono</h3>
+<p>El enemigo número uno de la nitidez no es la cámara: es el temblor de tu mano. Un teléfono es un objeto liviano y plano, o sea la peor forma posible para mantener algo quieto. Tres reglas:</p>
+<ul>
+<li><strong>Dos manos, siempre.</strong> Una sostiene, la otra estabiliza por el otro borde.</li>
+<li><strong>Codos apoyados en el cuerpo</strong>, no en el aire. Convierte tus brazos en un trípode con tu torso.</li>
+<li><strong>Dispará con el botón de volumen</strong>, no tocando la pantalla. Al tocar la pantalla empujás el teléfono justo en el momento del disparo.</li>
+</ul>
+<p>Y respirá: exhalá, retené, disparás, respirás. Es la misma técnica del tiro deportivo, y por la misma razón.</p>
+`,
+eng:`
+<p><strong>Por qué el sensor principal es tan superior al resto.</strong> Su sensor mide 1/1.56", el del teleobjetivo mide 1/3.94". En área de captación de luz esa diferencia es de aproximadamente 6 veces. Como la relación señal a ruido escala con la raíz cuadrada del número de fotones capturados, el sensor grande te da aproximadamente 2.5 veces mejor SNR con la misma escena. Por eso en interiores el 3x se ve ruidoso y el 1x se ve limpio.</p>
+
+<p><strong>Pixel binning.</strong> El sensor principal tiene 50 millones de fotodiodos de 1.0 µm dispuestos en un patrón Quad-Bayer: cada grupo de 2x2 fotodiodos comparte el mismo color de filtro. Por defecto el ISP suma las cargas de cada grupo de cuatro y entrega un archivo de 12.5 MP con píxeles efectivos de 2.0 µm. Estás cambiando resolución por sensibilidad y por menos ruido. En la lección 2 vemos cuándo conviene desactivarlo.</p>
+
+<p><strong>Apertura fija.</strong> f/1.8, f/2.2 y f/2.4 son números grabados en el vidrio. No hay diafragma mecánico en tu S25+. Consecuencia directa: el clásico triángulo de exposición (apertura, velocidad, ISO) en tu teléfono es en realidad un <em>segmento</em> de dos variables. Lo vemos a fondo en la lección 15.</p>
+
+<p><strong>OIS.</strong> El módulo principal y el teleobjetivo tienen estabilización óptica: un actuador de bobina móvil desplaza el grupo de lentes para compensar la rotación que mide el giroscopio, unas cientos de veces por segundo. Te regala unos 3 o 4 pasos de exposición a mano alzada. El ultra gran angular no lo tiene, y por eso rinde peor de noche.</p>
+`,
+videos:[
+ {title:'Sacale el MÁXIMO a las CÁMARAS del Samsung S25 Ultra ¡MODO PRO!', url:'https://www.youtube.com/watch?v=YNzARxbKPcA',
+  meta:'YouTube · canal y duración sin verificar · es del S25 Ultra, no del S25+',
+  look:'Miralo como recorrido general de la app Camera, que es idéntica en los dos teléfonos. Ignorá todo lo que diga de los lentes de 5x o 200 MP: eso es exclusivo del Ultra y tu S25+ no lo tiene.'},
+ {title:'Curso de Fotografía con celular (lista de reproducción)', url:'https://www.youtube.com/playlist?list=PLKrIQ-wOJ94C6Mh4Bh2NdoXPHfVRVGte-',
+  meta:'YouTube · lista de reproducción en español · cantidad de videos sin verificar',
+  look:'Para esta lección buscá dentro de la lista los videos de introducción, sobre cómo agarrar el teléfono y limpiar el lente. El resto de la lista nos va a servir en lecciones posteriores.'}
+],
+reads:[
+ {title:'7 trucos para sacar el máximo provecho a la cámara de la serie Galaxy S25', url:'https://news.samsung.com/es/7-trucos-para-sacar-el-maximo-provecho-a-la-camara-de-la-serie-galaxy-s25',
+  meta:'Samsung Newsroom España · fuente oficial · artículo, no video',
+  look:'Es la fuente oficial en español sobre tu generación de teléfono. Leelo entero: son 5 minutos.'}
+],
+searches:[
+ {q:'Samsung Galaxy S25 Plus camara tutorial español', why:'Para encontrar recorridos de la app específicos de tu modelo, no del Ultra.'},
+ {q:'como sostener el celular para fotos nitidas', why:'Videos cortos de técnica de agarre.'}
+],
+practica:[
+ 'Limpiá el vidrio de las cámaras traseras con un paño de microfibra o con la parte interna de tu remera. Sopla primero para sacar la arenilla, para no rayar el vidrio.',
+ 'Abre la cámara con el atajo: <strong>presioná dos veces el botón de encendido</strong>. Practicalo hasta que te salga sin pensar. Es la diferencia entre sacar la foto y perderla.',
+ 'Con la app abierta, ubicá los tres botones de lente sobre el obturador: <span class="path">0.6x</span> <span class="path">1x</span> <span class="path">3x</span>. Tocalos uno por uno y observá cómo cambia el encuadre.',
+ 'Tocá y mantené presionado el área del zoom: aparece un dial. Arrastralo y fijate que el 2x aparece como paso intermedio. Recuerda: ese no es un lente físico.',
+ 'Activá el disparo con volumen: entrá en <span class="path">Camera → Settings (⚙) → Shooting methods</span> y activá <span class="path">Press Volume buttons to → Take pictures</span>. Los nombres pueden variar levemente en One UI 8.5.',
+ 'Elegí un objeto fijo a unos 3 metros. Sacá la misma foto cuatro veces: con 0.6x, con 1x, con 2x y con 3x. No te muevas de lugar.',
+ 'Acercá el teléfono a 10 cm de una hoja escrita con el 0.6x y tratá de enfocar. No va a poder: acabas de comprobar con tus manos el foco fijo del ultra gran angular.',
+ 'Repetí el punto 6 con dos manos y codos apoyados, y después con una sola mano y el brazo estirado. Compará la nitidez ampliando las fotos al 100%.'
+],
+errores:[
+ ['Las fotos salen apagadas o con niebla, sobre todo a contraluz','Grasa de los dedos en el vidrio del lente','Limpiar el lente antes de cada sesión. Es el error más común y el más fácil de arreglar.'],
+ ['Fotos con movimiento aunque haya buena luz','Tocaste la pantalla para disparar y empujaste el teléfono','Disparar con el botón de volumen y sostener con dos manos.'],
+ ['El primer plano con 0.6x sale borroso','El ultra gran angular tiene foco fijo, no es un defecto','Usar 1x para cualquier cosa a menos de 40 cm.'],
+ ['Las fotos con 3x en interiores salen granuladas','El sensor del teleobjetivo es 6 veces más chico y recibe mucha menos luz','En poca luz usar 1x y acercarse con los pies.'],
+ ['Perdiste la foto porque tardaste en abrir la app','No usaste el atajo','Doble toque en el botón de encendido, ya con el teléfono bloqueado.']
+],
+tool:null,
+evaluacion:`
+<p><strong>Tarea 1.</strong> Elegí una escena fija con buena luz de día, por ejemplo un árbol o la fachada de una casa, parate a unos 4 metros y sin moverte de lugar sacá <strong>4 fotos</strong>: una con 0.6x, una con 1x, una con 2x y una con 3x.</p>
+<p><strong>Tarea 2.</strong> Sacá <strong>2 fotos más</strong> del mismo objeto en 1x: una con una sola mano y el brazo estirado tocando la pantalla, y otra con dos manos, codos apoyados y disparando con el botón de volumen.</p>
+<p>Subilas al chat, en ese orden, y decime cuál lente usaste en cada una. Te las evalúo con la rúbrica de 6 criterios. Si no puedo leer los metadatos, te voy a pedir una captura de <span class="path">Gallery → Details (ⓘ)</span>.</p>
+`,
+checklist:[
+ 'Sé que mi teléfono tiene 4 cámaras físicas y no una con zoom',
+ 'Sé que el 2x es un recorte del sensor principal, no un lente',
+ 'Sé que el ultra gran angular no enfoca de cerca',
+ 'Limpio el lente antes de disparar',
+ 'Abro la cámara con doble toque en el botón de encendido',
+ 'Disparo con el botón de volumen, con dos manos y codos apoyados',
+ 'Envié las 6 fotos de la evaluación'
+]
+},
+
+{
+n:2, lvl:1, ready:true,
+title:'Ajustes esenciales',
+dur:'1 semana',
+obj:'Configurar tu cámara una sola vez y bien: cuadrícula, nivel, relación de aspecto, resolución, y entender qué hace el Scene Optimizer. Instalar Camera Assistant.',
+teoria:`
+<p>La app Camera viene configurada para el usuario promedio, que quiere una foto decente sin pensar. Vos querés aprender, así que hay que cambiar algunas cosas. Son cinco minutos, una sola vez.</p>
+
+<h3>1. La cuadrícula y el nivel</h3>
+<p>Activar las líneas de cuadrícula es lo más barato que podés hacer por tus fotos. Divide la pantalla en nueve casilleros y sirve para dos cosas: encuadrar según la regla de tercios, que vemos en la lección 4, y sobre todo <strong>enderezar el horizonte</strong>. Un horizonte torcido tres grados arruina una foto de paisaje, y a ojo no se nota hasta que la ves en la compu.</p>
+
+<h3>2. Relación de aspecto: 3:4, 9:16 y 1:1</h3>
+<p>La relación de aspecto es la forma del rectángulo de tu foto. Tu sensor entrega nativamente <strong>3:4</strong>: ese es el recorte completo, el que usa todos los píxeles. Cualquier otra opción recorta.</p>
+<div class="tw"><table>
+<thead><tr><th>Relación</th><th>Qué es</th><th>Cuándo usarla</th></tr></thead>
+<tbody>
+<tr><td><strong>3:4</strong></td><td>El formato nativo del sensor, sin recortes</td><td>Por defecto. Siempre que dudes.</td></tr>
+<tr><td><strong>9:16</strong></td><td>Vertical largo, recorta los costados</td><td>Historias de Instagram, reels. Pero conviene sacar en 3:4 y recortar después.</td></tr>
+<tr><td><strong>1:1</strong></td><td>Cuadrado</td><td>Casi nunca al disparar. Recortá después.</td></tr>
+<tr><td><strong>Full</strong></td><td>Llena la pantalla del teléfono</td><td>No la recomiendo: no coincide con ningún formato de impresión ni de red.</td></tr>
+</tbody></table></div>
+<p><strong>Regla general:</strong> disparar siempre en el formato más grande, o sea 3:4, y recortar después. Recortar es gratis. Volver a poner píxeles que no capturaste es imposible.</p>
+
+<h3>3. ¿50 MP o 12 MP?</h3>
+<p>Aunque tu sensor principal tiene 50 MP, por defecto guarda archivos de 12 MP. No es un error. Es pixel binning, agrupar cuatro fotodiodos en uno, para reducir ruido.</p>
+<div class="tw"><table>
+<thead><tr><th>Modo</th><th>Peso típico</th><th>Ventaja</th><th>Desventaja</th></tr></thead>
+<tbody>
+<tr><td><strong>12 MP (por defecto)</strong></td><td>3 a 5 MB</td><td>Menos ruido, HDR completo, procesamiento total, archivos livianos</td><td>Menos margen para recortar</td></tr>
+<tr><td><strong>50 MP</strong></td><td>15 a 25 MB</td><td>Máximo detalle, permite recortes agresivos</td><td>Necesita mucha luz, ocupa 4 o 5 veces más, HDR limitado</td></tr>
+</tbody></table></div>
+<p><strong>Mi recomendación para tu perfil:</strong> dejá 12 MP. Para redes sociales y viajes en familia, 12 MP es más de lo que necesitás, y con 256 GB vas a agradecer el espacio. Usá 50 MP sólo en paisajes a plena luz de día donde sospeches que vas a querer recortar.</p>
+
+<h3>4. Scene Optimizer: el ayudante que a veces se pasa</h3>
+<p>El Scene Optimizer es un clasificador que reconoce la escena (comida, atardecer, césped, texto, mascota) y aplica un perfil de color más intenso. En un atardecer levanta los naranjas, en un paisaje satura los verdes. A veces queda espectacular; otras veces queda artificial, con verdes de plástico.</p>
+<p><strong>Para tu estilo, que es limpio y de color natural, te sugiero desactivarlo</strong> y juzgar por tu cuenta. Podés volver a activarlo cuando quieras.</p>
+
+<h3>5. Camera Assistant: el panel de control escondido</h3>
+<p>Camera Assistant es un módulo oficial de Samsung, gratis, que agrega ajustes que la app no expone. Se instala desde Galaxy Store. Es la pieza que más te va a servir en las lecciones de retrato y de mascotas, porque permite fijar una <strong>velocidad mínima de obturación</strong>: le decís a la cámara "nunca bajes de 1/125" y dejás de tener fotos borrosas de tu hija corriendo.</p>
+<div class="note">
+<p><strong>Aviso de rigor:</strong> verifiqué que Samsung amplió Camera Assistant con One UI 8.5 y que incluye opciones de velocidad mínima de obturación. Lo que <strong>no</strong> pude confirmar es exactamente qué opciones aparecen en tu S25+ con tu versión. Cuando lo instales, mandame una captura de la lista y ajustamos juntos.</p>
+</div>
+`,
+eng:`
+<p><strong>La matemática del pixel binning.</strong> Cuatro fotodiodos de 1.0 µm agrupados equivalen a un fotositio de 2.0 µm, o sea 4 veces el área. El ruido de disparo (shot noise) sigue una distribución de Poisson: su desviación estándar es la raíz cuadrada del número de electrones. Si capturás 4 veces más fotones, la señal se multiplica por 4 y el ruido por 2, así que la relación señal a ruido mejora por un factor de 2, o sea un paso completo de exposición. Ese es el precio real que pagás al pasar a 50 MP: un paso de ruido.</p>
+
+<p><strong>Por qué el modo 50 MP limita el HDR.</strong> El HDR de Samsung funciona fusionando varias exposiciones consecutivas. En modo binned el sensor entrega lecturas rápidas de 12.5 MP y el ISP puede apilar varios cuadros dentro del tiempo del disparo. En 50 MP cada lectura del sensor es 4 veces más pesada, el ancho de banda del bus MIPI se vuelve el cuello de botella y el apilado se reduce o desaparece. De ahí que las fotos de 50 MP tengan menos rango dinámico aunque tengan más píxeles: perdiste fotografía computacional para ganar resolución.</p>
+
+<p><strong>JPEG vs HEIF.</strong> HEIF usa el codec HEVC intra-frame y consigue calidad equivalente en aproximadamente la mitad del tamaño, con soporte de 10 bits por canal. El costo es compatibilidad: algunos servicios viejos no lo abren. Para redes sociales, que recomprimen todo de todas formas, HEIF te ahorra la mitad del almacenamiento sin pérdida visible.</p>
+`,
+videos:[
+ {title:'Sacale el MÁXIMO a las CÁMARAS del Samsung S25 Ultra ¡MODO PRO!', url:'https://www.youtube.com/watch?v=YNzARxbKPcA',
+  meta:'YouTube · canal y duración sin verificar',
+  look:'Volvé a este video, pero esta vez sólo a la parte donde recorre el menú de ajustes (el engranaje). Compará lo que muestra con lo que tenés vos y anotá las diferencias: tu One UI 8.5 reorganizó algunos ajustes.'}
+],
+reads:[
+ {title:'Camera modes and settings on Galaxy phones and tablets', url:'https://www.samsung.com/us/support/answer/ANS10001353/',
+  meta:'Soporte oficial de Samsung · en inglés · los nombres de menú coinciden con tu teléfono en inglés',
+  look:'Es la referencia oficial de nombres de menú. Te sirve como diccionario cuando un video en español diga un nombre traducido que no encuentres.'}
+],
+searches:[
+ {q:'Camera Assistant Samsung tutorial español One UI 8', why:'Para ver el módulo en funcionamiento antes de instalarlo.'},
+ {q:'Samsung 50MP vs 12MP cual usar', why:'Comparativas visuales de los dos modos de resolución.'}
+],
+practica:[
+ 'Activá la cuadrícula: <span class="path">Camera → Settings (⚙) → Grid lines</span> → activado.',
+ 'Buscá en el mismo menú una opción de nivel o burbuja, con nombres como <span class="path">Level guide</span> o similar. Si no la encontrás, no pasa nada: la cuadrícula ya te sirve para enderezar.',
+ 'Fijá la relación de aspecto: en la pantalla principal tocá el ícono de relación, arriba, y elegí <strong>3:4</strong>.',
+ 'Dejá la resolución en 12 MP: en la fila de arriba, el botón que dice <span class="path">50MP</span> debe estar apagado.',
+ 'Desactivá el optimizador: <span class="path">Camera → Settings (⚙) → Scene optimizer</span> → apagado.',
+ 'Activá <span class="path">Settings → Advanced picture options → HEIF pictures</span> si querés ahorrar la mitad del espacio. Si tenés dudas de compatibilidad, dejalo apagado por ahora.',
+ 'Abrí Galaxy Store, buscá <strong>Camera Assistant</strong> e instalalo. Necesitás la cuenta Samsung iniciada.',
+ 'Abrí Camera Assistant y sacale una captura de pantalla a la lista completa de opciones. Mandámela: con eso configuramos la velocidad mínima de obturación en la lección 12.',
+ 'Prueba de control: sacá la misma foto de un paisaje con Scene Optimizer encendido y apagado, y compará los verdes y el cielo al ampliar.'
+],
+errores:[
+ ['Disparás en 9:16 y después la foto no sirve para imprimir ni para otra red','Recortaste en el momento de disparar y perdiste píxeles para siempre','Disparar en 3:4 y recortar en la galería después.'],
+ ['Usás 50 MP siempre y se te llena la memoria','Cada foto pesa 4 o 5 veces más y en poca luz además sale peor','Reservar 50 MP para paisajes a plena luz.'],
+ ['Los verdes y los cielos salen exagerados','Scene Optimizer aplicando un perfil de saturación agresivo','Desactivarlo y decidir vos el color.'],
+ ['No aparece Camera Assistant en Galaxy Store','Falta iniciar sesión con la cuenta Samsung, o la app figura dentro de Good Lock','Iniciar sesión y, si no aparece, buscar Good Lock en Galaxy Store.'],
+ ['Encuadrás con la cuadrícula pero el horizonte sigue torcido','Estás mirando el sujeto y no la línea del horizonte','Antes de disparar, mirá la línea horizontal de la cuadrícula y alineala con el horizonte real.']
+],
+tool:'grids',
+evaluacion:`
+<p><strong>Tarea.</strong> Tres entregas:</p>
+<ol>
+<li>Una <strong>captura de pantalla</strong> del menú <span class="path">Camera → Settings</span> mostrando tu configuración final.</li>
+<li>Una <strong>captura de la lista de opciones de Camera Assistant</strong> tal como aparece en tu teléfono.</li>
+<li>El <strong>par de fotos</strong> del mismo paisaje con Scene Optimizer encendido y apagado, y decime cuál preferís y por qué.</li>
+</ol>
+<p>De la tercera me interesa tu criterio más que la técnica: quiero saber si tu ojo ya distingue color natural de color forzado.</p>
+`,
+checklist:[
+ 'Cuadrícula activada',
+ 'Relación de aspecto en 3:4',
+ 'Resolución en 12 MP por defecto',
+ 'Scene Optimizer desactivado',
+ 'Camera Assistant instalado desde Galaxy Store',
+ 'Entendí por qué 50 MP no siempre es mejor',
+ 'Envié las capturas y el par de fotos comparativas'
+]
+},
+
+{
+n:3, lvl:1, ready:true,
+title:'Enfoque y exposición en automático',
+dur:'1 semana',
+obj:'Dejar de aceptar lo que decide la cámara: elegir vos dónde enfoca, bloquear el enfoque y la exposición, y corregir el brillo antes de disparar.',
+teoria:`
+<p>Cuando apuntás y disparás, tu teléfono toma dos decisiones por vos: <strong>dónde enfocar</strong> y <strong>cuánta luz dejar entrar</strong>. Las toma bien el 80% de las veces. Esta lección es sobre el otro 20%, que es justamente donde están las fotos que te importan.</p>
+
+<h3>Tocar para enfocar</h3>
+<p>Tocá la pantalla sobre tu sujeto y aparece un marco. Le acabás de decir a la cámara: "esto es lo importante". La cámara enfoca ahí <strong>y además mide la luz ahí</strong>. Son dos cosas al mismo tiempo, y esto es clave para entender los errores que vienen.</p>
+
+<h3>El control que casi nadie usa: la compensación de exposición</h3>
+<p>Cuando tocás para enfocar aparece, al costado del marco, un <strong>deslizador con un solito o un ícono de brillo</strong>. Arrastrándolo hacia arriba la foto se aclara, hacia abajo se oscurece. Eso es la compensación de exposición, y es el único control "manual" que necesitás en el modo automático.</p>
+<p>¿Por qué hace falta? Porque el medidor de tu cámara no sabe qué estás fotografiando. Está calibrado para que <strong>el promedio de la escena quede en un gris medio</strong>. Dos casos clásicos donde eso falla:</p>
+<ul>
+<li><strong>Nieve, arena clara, una pared blanca:</strong> la escena es más clara que un gris medio, la cámara la oscurece y la nieve te sale gris sucia. Solución: subir la exposición, entre +0.7 y +1.5.</li>
+<li><strong>Un foco de luz sobre fondo oscuro, una escena nocturna:</strong> la cámara aclara todo, el negro se vuelve gris ruidoso y las luces se quiebran. Solución: bajar la exposición, entre -0.7 y -1.5.</li>
+</ul>
+<p>La regla mnemotécnica: <strong>escena clara, subir; escena oscura, bajar.</strong> Suena al revés y por eso se olvida.</p>
+
+<h3>Bloquear AE/AF: el gesto que separa a un aficionado de alguien que sabe</h3>
+<p><strong>Tocá y mantené presionado</strong> sobre el punto donde querés enfocar. Aparece un candado o la sigla <strong>AE/AF LOCK</strong>. Acabás de congelar el enfoque y la exposición: podés recomponer el encuadre, moverte, esperar, y esos valores no cambian.</p>
+<p>Para qué sirve, en concreto:</p>
+<ul>
+<li><strong>Retrato a contraluz.</strong> Medís sobre la cara de tu esposa, bloqueás, recomponés. La cara queda bien expuesta aunque el fondo se queme.</li>
+<li><strong>El gato.</strong> Enfocás donde el gato va a estar, bloqueás y esperás. El autofoco no se te va a ir al sillón cuando el gato se mueva.</li>
+<li><strong>Video consistente.</strong> Evita el salto de brillo cuando pasás la cámara por una zona clara.</li>
+</ul>
+<div class="note">
+<p><strong>Ojo con el efecto combinado.</strong> Como "tocar" mide y enfoca a la vez, si tocás una zona oscura para enfocar, la cámara además aclara toda la foto. Ese es el origen de la mitad de las fotos "mal expuestas" que la gente culpa al teléfono.</p>
+</div>
+
+<h3>Sombras y luces: el HDR que ya está trabajando</h3>
+<p>Tu S25+ tiene HDR automático permanente. En una escena de alto contraste dispara varias exposiciones en milisegundos y las fusiona. Por eso muchas veces no necesitás compensar nada: el teléfono ya rescató el cielo y las sombras. Pero el HDR tiene un límite, y cuando lo pasás aparecen los halos y los cielos grises y planos. Eso lo trabajamos en la lección 8.</p>
+`,
+eng:`
+<p><strong>Cómo mide tu cámara.</strong> El sistema de medición divide el cuadro en una matriz de zonas y pondera sus luminancias según un modelo entrenado. La referencia es la reflectancia media del 18%, el gris medio, que refleja aproximadamente la mitad de la luz que recibe en términos perceptuales. Todo medidor asume que el mundo promedia gris medio. Cuando la escena no cumple ese supuesto, el medidor falla de forma predecible, y la compensación de exposición es el término correctivo que le aplicás.</p>
+
+<p><strong>Qué hace realmente la compensación en un teléfono.</strong> Como la apertura es fija, mover el deslizador +1 EV sólo puede hacer dos cosas: duplicar el tiempo de integración del sensor o duplicar la ganancia analógica (ISO). El ISP prefiere lo primero mientras el tiempo no ponga en riesgo la nitidez, y recién después toca la ganancia. Es decir: cada paso de exposición que pedís se paga en movimiento borroso o en ruido. No hay un tercer lugar de donde sacarlo.</p>
+
+<p><strong>Dual Pixel AF.</strong> Cada fotodiodo del sensor principal está dividido en dos mitades con microlente compartida. Comparando la fase de las dos mitades el ISP calcula no sólo si está desenfocado, sino <em>en qué dirección y cuánto</em>, y manda el actuador al punto correcto en un solo movimiento. Es lo mismo que hace un telémetro de coincidencia, resuelto en silicio. De ahí que el enfoque del 1x sea casi instantáneo, mientras que el ultra gran angular, que no tiene autofoco, simplemente no participa.</p>
+`,
+videos:[],
+reads:[
+ {title:'7 trucos para sacar el máximo provecho a la cámara de la serie Galaxy S25', url:'https://news.samsung.com/es/7-trucos-para-sacar-el-maximo-provecho-a-la-camara-de-la-serie-galaxy-s25',
+  meta:'Samsung Newsroom España · fuente oficial',
+  look:'Releelo buscando específicamente lo que diga sobre enfoque y sobre bloqueo.'}
+],
+searches:[
+ {q:'bloquear enfoque y exposicion celular AE AF lock tutorial español', why:'Necesitás ver el gesto de tocar y mantener en movimiento; un video corto lo explica mejor que cualquier texto.'},
+ {q:'compensacion de exposicion explicada fotografia español', why:'El concepto de gris medio y por qué la nieve sale gris.'},
+ {q:'Samsung camera tap to focus exposure slider tutorial', why:'En inglés, si no encontrás uno bueno en español. Los nombres coinciden con tu teléfono.'}
+],
+practica:[
+ 'Abrí la cámara y tocá distintas partes de una escena con zonas claras y oscuras, por ejemplo una ventana de día desde adentro. Observá cómo cambia el brillo de toda la imagen según dónde toques.',
+ 'Tocá una vez y buscá el deslizador de brillo al lado del marco. Arrastralo a +1 y a -1 y mirá el efecto en la vista previa antes de disparar.',
+ 'Tocá y <strong>mantené presionado</strong> hasta que aparezca <span class="path">AE/AF LOCK</span>. Movés el teléfono y comprobás que el brillo ya no cambia. Tocá una vez en otro lado para desbloquear.',
+ 'Prueba de la escena clara: fotografiá una pared blanca o una hoja de papel que llene el cuadro. Primero automático, después con +1. Comparalas: la automática sale gris.',
+ 'Prueba de la escena oscura: buscá una lámpara encendida en una habitación a oscuras. Automático, después -1. Comparalas: la automática ensucia el negro.',
+ 'Prueba de contraluz: poné a alguien de tu familia de espaldas a una ventana. Foto 1 automática. Foto 2: tocás la cara, bloqueás con AE/AF, recomponés y disparás.',
+ 'Prueba del gato: enfocá y bloqueá sobre el lugar donde suele acostarse, esperá a que llegue y disparás sin volver a tocar la pantalla.'
+],
+errores:[
+ ['La cara sale negra y el fondo perfecto','Contraluz: la cámara midió el fondo brillante','Tocar la cara, bloquear AE/AF, recomponer. O subir la exposición +1.'],
+ ['La nieve o la arena salen grises','El medidor llevó la escena clara al gris medio','Subir la exposición entre +0.7 y +1.5.'],
+ ['Las fotos de noche salen grises y ruidosas, no negras','El medidor aclaró una escena que era oscura de verdad','Bajar la exposición entre -0.7 y -1.5.'],
+ ['Enfocaste bien pero la foto quedó demasiado clara','Tocaste una zona oscura, y tocar también mide la luz','Bloquear midiendo en una zona de tono medio y después recomponer.'],
+ ['El enfoque se va al fondo justo cuando disparás','El autofoco sigue activo y perdió el sujeto','Tocar y mantener para bloquear antes del momento.'],
+ ['Bloqueaste AE/AF y todas las fotos siguientes salieron mal','Quedó bloqueado y cambió la escena','Tocar una vez en cualquier lado para liberar el bloqueo.']
+],
+tool:'expo',
+evaluacion:`
+<p><strong>Tarea.</strong> Cuatro pares de fotos, o sea 8 fotos. Cada par es "antes y después" del mismo encuadre:</p>
+<ol>
+<li><strong>Escena clara:</strong> automática vs. con exposición subida.</li>
+<li><strong>Escena oscura:</strong> automática vs. con exposición bajada.</li>
+<li><strong>Retrato a contraluz</strong> de alguien de tu familia: automática vs. midiendo en la cara con AE/AF bloqueado.</li>
+<li><strong>Libre:</strong> cualquier escena donde la cámara se equivocó y la corregiste.</li>
+</ol>
+<p>Decime en cada caso cuánto compensaste. Voy a ser exigente con el criterio, no con el resultado: lo que evalúo es si diagnosticaste bien qué estaba haciendo mal el medidor.</p>
+`,
+checklist:[
+ 'Sé que tocar la pantalla enfoca y además mide la luz',
+ 'Uso el deslizador de exposición antes de disparar',
+ 'Sé hacer y deshacer el bloqueo AE/AF',
+ 'Recuerdo la regla: escena clara subir, escena oscura bajar',
+ 'Puedo salvar un retrato a contraluz sin usar flash',
+ 'Envié los 4 pares de fotos'
+]
+},
+
+{
+n:4, lvl:1, ready:true,
+title:'Composición I: el orden del cuadro',
+dur:'1 semana',
+obj:'Aplicar la regla de tercios con intención, enderezar el horizonte siempre, y aprender a sacar cosas del cuadro en vez de meterlas.',
+teoria:`
+<p>Hasta acá trabajamos la máquina. Desde acá trabajamos el ojo, y esto es lo que de verdad separa una foto buena de una foto más. Una cámara de 50 MP con una mala composición da una foto mala en alta resolución.</p>
+
+<h3>La regla de tercios</h3>
+<p>Dividí el cuadro en tres franjas horizontales y tres verticales: te quedan nueve casilleros y cuatro puntos de cruce. La regla dice: <strong>poné lo importante sobre una línea o, mejor, sobre un cruce</strong>, no en el centro.</p>
+<p>¿Por qué funciona? Porque el centro geométrico es el lugar más estable y por lo tanto el más aburrido. Correr el sujeto genera una asimetría que el ojo recorre, y ese recorrido es lo que hace que una foto "se mire" en lugar de "se vea".</p>
+<p>En paisaje esto se traduce en una decisión concreta con el horizonte:</p>
+<div class="tw"><table>
+<thead><tr><th>Horizonte en...</th><th>Efecto</th><th>Cuándo</th></tr></thead>
+<tbody>
+<tr><td><strong>Tercio inferior</strong></td><td>Dos tercios de cielo: la foto habla del cielo</td><td>Atardeceres, nubes dramáticas, cielos con color</td></tr>
+<tr><td><strong>Tercio superior</strong></td><td>Dos tercios de suelo: la foto habla del terreno</td><td>Campos, reflejos en agua, texturas de tierra o piedra</td></tr>
+<tr><td><strong>Centro exacto</strong></td><td>Simetría total</td><td>Sólo cuando la simetría es el tema: un reflejo perfecto en un lago quieto</td></tr>
+</tbody></table></div>
+<p>El error clásico del principiante es el horizonte en el medio <em>sin haberlo decidido</em>. Partís la foto en dos mitades que compiten y ninguna gana.</p>
+
+<h3>El horizonte torcido</h3>
+<p>No hay excepción a esto: en una foto de paisaje, <strong>el horizonte va derecho</strong>. Tu ojo tiene una referencia absoluta de horizontalidad, el sistema vestibular, y detecta un error de dos grados aunque no sepa nombrarlo. La sensación es de incomodidad difusa, que el espectador atribuye a la foto en general.</p>
+<p>Se arregla en dos lugares: con la cuadrícula al encuadrar, y con la herramienta de rotación al editar. Usá las dos.</p>
+
+<h3>Simplicidad: fotografiar es restar</h3>
+<p>Un principiante ve algo lindo, apunta y aprieta. Lo que captura es "todo lo que había ahí". Un fotógrafo se pregunta primero <strong>qué es el tema</strong>, y después saca del cuadro todo lo que no ayude a contarlo.</p>
+<p>Tres maneras de restar, sin tocar ningún ajuste:</p>
+<ul>
+<li><strong>Acercarte.</strong> Con los pies, no con el zoom. Todo lo que sobra sale del cuadro solo.</li>
+<li><strong>Cambiar de altura.</strong> Agachate y el piso desordenado se va; subí un escalón y los autos estacionados desaparecen detrás del muro.</li>
+<li><strong>Cambiar de ángulo.</strong> Dos pasos al costado y el tacho de basura queda fuera del cuadro.</li>
+</ul>
+<p>Antes de disparar, hacé un barrido consciente por los <strong>cuatro bordes</strong> del encuadre buscando intrusos: un poste cortado, una mano ajena, un cartel. Cuesta tres segundos y salva más fotos que cualquier edición.</p>
+
+<h3>Un solo sujeto</h3>
+<p>Una foto puede contar una cosa bien o cinco cosas mal. Si al mirar tu foto alguien tiene que preguntar "¿qué querías mostrar?", la respuesta es que había más de un tema. Elegí uno y subordiná todo lo demás.</p>
+`,
+eng:`
+<p><strong>Qué hay de real en la regla de tercios.</strong> No hay un mecanismo neurológico que privilegie exactamente la posición 1/3. Lo que sí está bien documentado es que el sistema visual humano explora una imagen mediante sacadas, saltos rápidos de la mirada entre puntos de alto contenido informativo, y que un sujeto descentrado genera una secuencia de sacadas más larga y por lo tanto más tiempo de atención. La regla de tercios es una heurística sencilla que produce descentramiento sin caer en el borde del cuadro, donde el sujeto se lee como recortado. Es ingeniería de usabilidad visual, no una constante de la naturaleza.</p>
+
+<p><strong>Por qué se detecta un horizonte torcido.</strong> Tu cerebro fusiona la señal de los canales semicirculares del oído interno con las verticales y horizontales que detecta en la escena. Cuando la imagen presenta una horizontal dominante inclinada, aparece un conflicto entre la referencia gravitatoria y la visual. Ese conflicto se percibe como malestar antes de identificarse como error técnico. Es el mismo mecanismo que produce el mareo de simulador.</p>
+
+<p><strong>Costo de enderezar en edición.</strong> Rotar una imagen obliga a recortar el rectángulo inscrito más grande y a remuestrear cada píxel por interpolación. Para una rotación de 3 grados perdés cerca del 10% del área y un poco de nitidez. Enderezar al encuadrar es gratis. Enderezar después se paga en píxeles.</p>
+`,
+videos:[
+ {title:'La Regla de Tercios (en la composición fotográfica)', url:'https://www.youtube.com/watch?v=tCrfarfxa2Q',
+  meta:'YouTube · en español · canal y duración sin verificar',
+  look:'Concentrate en los ejemplos donde mueven el sujeto del centro a un cruce: ahí se ve el efecto de un golpe.'},
+ {title:'APRENDE la REGLA DE LOS TERCIOS en 1 MINUTO ⏱️ | shotbymarcos', url:'https://www.youtube.com/watch?v=N-yOZv7SP68',
+  meta:'YouTube · en español · dura alrededor de 1 minuto según el título; no pude confirmarlo',
+  look:'Es el resumen más rápido. Miralo primero y después el más largo.'},
+ {title:'Regla de los tercios en fotografía - Curso de fotografía', url:'https://www.youtube.com/watch?v=Ebd-P77YcVQ',
+  meta:'YouTube · en español · canal y duración sin verificar',
+  look:'Si querés un tratamiento más extenso, con más ejemplos de paisaje.'}
+],
+reads:[],
+searches:[
+ {q:'composicion fotografica simplicidad restar elementos español', why:'La idea de "fotografiar es restar" tiene menos videos que la regla de tercios y vale la pena buscarla aparte.'},
+ {q:'horizonte torcido fotografia paisaje error comun', why:'Ejemplos antes y después que dejan clarísimo el efecto.'}
+],
+practica:[
+ 'Verificá que la cuadrícula esté activa. Si no, volvé a la lección 2.',
+ 'Elegí un paisaje amplio con horizonte visible: un río, un campo, la vista desde una terraza.',
+ 'Foto A: horizonte alineado con la línea <strong>inferior</strong> de la cuadrícula. Dos tercios de cielo.',
+ 'Foto B: sin moverte, horizonte alineado con la línea <strong>superior</strong>. Dos tercios de terreno.',
+ 'Compará las dos en pantalla grande y decidí cuál funciona mejor <em>para esa escena</em>. La respuesta depende de si el cielo o el suelo es más interesante.',
+ 'Buscá un sujeto aislado: un árbol, un banco, una persona de tu familia a distancia media.',
+ 'Foto C: sujeto en el centro exacto. Foto D: sujeto sobre un cruce de la cuadrícula. Mismo encuadre, mismo lente.',
+ 'Ejercicio de restar: elegí una escena desordenada, por ejemplo una mesa después de comer. Sacá una foto "como está". Después movete, agachate o acercate hasta que quede un solo tema claro, y sacá la segunda.',
+ 'Antes de cada disparo de hoy, hacé el barrido de los cuatro bordes buscando intrusos.',
+ 'Cargá una de tus fotos en la <strong>herramienta de cuadrículas</strong> de esta app y verificá con el control de rotación si tu horizonte estaba realmente derecho.'
+],
+errores:[
+ ['La foto de paisaje no dice nada','Horizonte en el medio sin decisión, mitad cielo mitad suelo compitiendo','Decidir el tema y mover el horizonte al tercio superior o inferior.'],
+ ['Sensación de incomodidad al mirar la foto','Horizonte torcido uno o dos grados','Alinear con la cuadrícula al encuadrar; corregir con rotación al editar.'],
+ ['El sujeto está descentrado pero la foto se ve mal','Lo corriste demasiado y quedó pegado al borde, se lee como cortado','Sobre la línea del tercio, no sobre el borde.'],
+ ['Hay un poste o un cartel que arruina todo','No revisaste los bordes antes de disparar','Barrido de los cuatro bordes, siempre.'],
+ ['El sujeto está en el tercio pero mira hacia afuera del cuadro','Le dejaste el espacio del lado equivocado','El espacio libre va del lado hacia donde el sujeto mira o se mueve.'],
+ ['Centrás todo por costumbre','Estás disparando en automático mental','Obligate a hacer la versión descentrada de cada foto; después elegís.']
+],
+tool:'grids',
+evaluacion:`
+<p><strong>Tarea.</strong> Cinco fotos:</p>
+<ol>
+<li><strong>Paisaje con horizonte en el tercio inferior.</strong></li>
+<li><strong>Paisaje con horizonte en el tercio superior</strong>, la misma escena que la anterior.</li>
+<li><strong>Sujeto único sobre un cruce</strong> de la cuadrícula.</li>
+<li><strong>Par "antes y después" de restar</strong>: la escena desordenada y la versión simplificada.</li>
+</ol>
+<p>Decime, en una línea por foto, cuál era el tema. Si no lo podés decir en una línea, ahí está el problema y lo vamos a ver en la evaluación. En esta lección me pongo exigente con composición: es la lección que más impacto tiene en todo el curso.</p>
+`,
+checklist:[
+ 'Encuadro con la cuadrícula activada',
+ 'Decido a propósito dónde va el horizonte',
+ 'El horizonte sale derecho',
+ 'Reviso los cuatro bordes antes de disparar',
+ 'Puedo decir el tema de mi foto en una sola línea',
+ 'Me acerco con los pies en lugar de usar el zoom',
+ 'Envié las 5 fotos'
+]
+},
+
+{
+n:5, lvl:1, ready:true,
+title:'Composición II: dirigir la mirada',
+dur:'1 semana',
+obj:'Usar líneas guía, encuadres naturales, espacio negativo y altura de cámara para conducir la mirada del espectador. Encuadrar para vertical de redes sin perder la foto.',
+teoria:`
+<p>En la lección anterior ordenaste el cuadro. Ahora vas a <strong>dirigir</strong> al espectador dentro de él. Esto es lo que hace que una foto de un lugar cualquiera se vea profesional.</p>
+
+<h3>Líneas guía</h3>
+<p>El ojo sigue las líneas. Es casi un reflejo. Un camino, una vía, una baranda, la orilla de un río, la juntura de las baldosas, una fila de árboles: todo eso es una flecha apuntando a algún lugar. Tu trabajo es que apunte <strong>a tu sujeto</strong>, y no a la nada.</p>
+<p>Las líneas más potentes son las <strong>diagonales</strong>, y las que arrancan en una esquina inferior del cuadro son las más potentes de todas: el ojo occidental entra a la imagen por abajo a la izquierda.</p>
+
+<h3>Encuadre natural</h3>
+<p>Poner algo del entorno alrededor del sujeto: el arco de una puerta, las ramas de un árbol, el marco de una ventana, el hueco entre dos paredes. Hace tres cosas a la vez: aísla al sujeto, tapa lo que sobra, y agrega una capa de profundidad. En fotografía de viaje es casi una receta: una puerta vieja encuadrando la plaza.</p>
+
+<h3>Espacio negativo</h3>
+<p>El espacio vacío alrededor del sujeto no es espacio desperdiciado: es lo que hace que el sujeto respire. Un sujeto chico en un cuadro grande y limpio, por ejemplo tu hija corriendo en una playa vacía, produce una lectura inmediata de escala y soledad. Es exactamente lo contrario de llenar el cuadro, y en tu estilo simple y limpio es una herramienta central.</p>
+
+<h3>Altura de cámara: el ajuste que nadie usa</h3>
+<p>Casi todas las fotos del mundo están sacadas desde 1,60 m de altura, porque es donde está la cara de quien dispara. Cambiar de altura es gratis y transforma la imagen:</p>
+<div class="tw"><table>
+<thead><tr><th>Altura</th><th>Qué provoca</th><th>Usala para</th></tr></thead>
+<tbody>
+<tr><td><strong>Al nivel del piso</strong></td><td>Engrandece, dramatiza, limpia el fondo contra el cielo</td><td>El gato, flores, charcos con reflejo, el primer plano de un paisaje</td></tr>
+<tr><td><strong>A la altura de los ojos del sujeto</strong></td><td>Conexión, naturalidad, respeto</td><td><strong>Siempre</strong> para retratos, y muy en especial con tu hija: agachate a su altura</td></tr>
+<tr><td><strong>Por encima</strong></td><td>Ordena, muestra el plano, empequeñece</td><td>Mesas, mercados, patrones en el piso</td></tr>
+</tbody></table></div>
+<div class="note"><p>Si de esta lección te llevás una sola cosa, que sea esta: <strong>para fotografiar a un chico, agachate</strong>. Es la diferencia entre una foto de un chico y una foto desde el mundo de un chico.</p></div>
+
+<h3>Vertical para redes, sin arruinar la foto</h3>
+<p>Instagram y las historias viven en vertical 9:16. Pero ya vimos que disparar en 9:16 tira píxeles a la basura. La solución práctica:</p>
+<ol>
+<li>Disparar en <strong>3:4 vertical</strong>, o sea el teléfono parado, formato nativo completo.</li>
+<li>Al componer, dejá un poco de aire arriba y abajo, sabiendo que después vas a recortar a 9:16.</li>
+<li>Recortar en la galería a 9:16 cuando lo vayas a publicar.</li>
+</ol>
+<p>Y una advertencia de composición: en vertical <strong>las líneas guía funcionan distinto</strong>. El formato alto favorece las líneas que entran desde abajo y suben. Un camino que en horizontal cruzaba la escena, en vertical se convierte en una calle que se va hacia el fondo.</p>
+`,
+eng:`
+<p><strong>Por qué una diagonal "mueve" y una horizontal "calma".</strong> En la corteza visual primaria V1 hay poblaciones de neuronas selectivas a la orientación, con sobrerrepresentación de las orientaciones cardinales, horizontal y vertical. Las oblicuas se codifican con menor precisión, el llamado efecto oblicuo, y generan una respuesta menos estable. Esa inestabilidad de codificación es una hipótesis razonable de por qué percibimos las diagonales como dinámicas y las horizontales como estáticas.</p>
+
+<p><strong>Altura de cámara y perspectiva.</strong> Bajar la cámara cambia la posición del punto de fuga y con eso la relación de tamaño aparente entre primer plano y fondo. A 20 cm del piso un objeto a 30 cm subtiende un ángulo enorme y el fondo se comprime detrás: obtenés jerarquía sin tocar la apertura. Es geometría proyectiva pura, y es el único control de perspectiva que tenés en un teléfono, porque la focal la elegís entre cuatro valores fijos.</p>
+
+<p><strong>El costo real del recorte a 9:16.</strong> Un archivo nativo de 12 MP en 3:4 mide 3000 x 4000. Recortarlo a 9:16 conservando el alto deja 2250 x 4000, o sea 9 MP: perdés un 25% del área. Si en cambio disparás directo en 9:16, el ISP hace el mismo recorte pero además pierde esa información antes del apilado HDR, así que entregás menos datos al procesamiento. Disparar ancho y recortar después es estrictamente mejor.</p>
+`,
+videos:[
+ {title:'COMPOSICIÓN FOTOGRÁFICA - La Regla de LOS TERCIOS', url:'https://www.youtube.com/watch?v=Up-jAVRisQQ',
+  meta:'YouTube · en español · canal y duración sin verificar',
+  look:'Aunque el título habla de tercios, los videos de composición de este tipo suelen cubrir líneas guía y encuadre. Prestá atención a esa parte y salteá lo que ya sabés.'},
+ {title:'Tutoriales de Fotografía con Móvil 🥰 Fotos con Celular (lista)', url:'https://www.youtube.com/playlist?list=PLZsK6tw3_FCK-3LIEbCzHPNNGUsFrjKpn',
+  meta:'YouTube · lista de reproducción en español · contenido exacto sin verificar',
+  look:'Buscá dentro de la lista los videos de composición con celular: son los más aplicables a tu caso porque usan el mismo formato de cámara que vos.'}
+],
+reads:[],
+searches:[
+ {q:'lineas guia fotografia composicion tutorial español', why:'El tema central de la lección, con ejemplos de caminos y diagonales.'},
+ {q:'espacio negativo fotografia minimalista español', why:'Encaja directo con tu estilo limpio.'},
+ {q:'angulo bajo angulo alto fotografia celular ejemplos', why:'Para ver el efecto de la altura de cámara comparado lado a lado.'}
+],
+practica:[
+ 'Salí a buscar una <strong>línea guía</strong>: una calle, una vía, una baranda, una vereda. Sacá una foto donde la línea arranque en una esquina inferior del cuadro y termine en tu sujeto.',
+ 'Sacá la misma escena con la línea que no apunta a nada. Compará: es el mejor ejercicio para entender por qué las líneas tienen que ir a algún lado.',
+ 'Buscá un <strong>encuadre natural</strong>: una puerta, un arco, ramas, una ventana. Colocá a alguien de tu familia o un objeto dentro del hueco.',
+ 'Ejercicio de <strong>espacio negativo</strong>: poné a tu hija o al gato chiquito dentro de un cuadro grande y vacío, ocupando menos de un quinto de la imagen.',
+ 'Serie de altura: elegí un sujeto y sacá tres fotos sin moverte de lugar, sólo cambiando la altura. Una desde el piso, una a la altura del sujeto, una desde arriba.',
+ 'Retrato a la altura correcta: fotografiá a tu hija agachándote hasta que la cámara quede al nivel de sus ojos. Después sacá una de pie, desde arriba. Compará cuál la muestra mejor.',
+ 'Fotografiá al gato desde el piso, con la cámara apoyada en el suelo. Usá el temporizador de 2 segundos para no mover el teléfono.',
+ 'Encuadre para redes: sacá una foto en 3:4 vertical dejando aire arriba y abajo, y después recortala a 9:16 en la galería. Comprobá que no perdiste nada importante.'
+],
+errores:[
+ ['La línea guía no aporta nada','Empieza y termina en la nada, o sale por un costado','La línea tiene que llevar el ojo hasta el sujeto.'],
+ ['El encuadre natural tapa al sujeto','El marco quedó más protagonista que el tema','El marco es soporte: dejalo oscuro, fuera de foco o más chico.'],
+ ['La foto con espacio negativo se ve vacía, no limpia','El fondo tiene textura o suciedad visual','El espacio negativo necesita ser realmente uniforme: cielo, pared, agua, arena.'],
+ ['Las fotos de tu hija parecen todas iguales','Están todas sacadas desde tu altura','Agacharse hasta la altura de sus ojos. Siempre.'],
+ ['Las fotos del gato no funcionan','Fotografiado desde arriba se ve chico y aplastado','Cámara en el piso, a su altura.'],
+ ['Recortaste a 9:16 y quedó cortada la cabeza','No dejaste aire al encuadrar','Componer sabiendo que vas a recortar: dejá margen arriba y abajo.']
+],
+tool:'grids',
+evaluacion:`
+<p><strong>Tarea.</strong> Seis fotos:</p>
+<ol>
+<li>Una con <strong>línea guía</strong> que lleve claramente al sujeto.</li>
+<li>Una con <strong>encuadre natural</strong>.</li>
+<li>Una de <strong>espacio negativo</strong>, sujeto ocupando menos de un quinto del cuadro.</li>
+<li>La <strong>serie de tres alturas</strong> del mismo sujeto: piso, altura del sujeto, desde arriba.</li>
+</ol>
+<p>Extra opcional, y me interesa mucho: un <strong>retrato de tu hija a la altura de sus ojos</strong>. Es la foto que más te va a servir de todo este nivel.</p>
+`,
+checklist:[
+ 'Busco líneas que lleven al sujeto',
+ 'Uso marcos naturales del entorno',
+ 'Entiendo que el vacío puede ser el tema',
+ 'Cambio de altura antes de disparar',
+ 'Me agacho a la altura de los chicos y de las mascotas',
+ 'Disparo en 3:4 y recorto a 9:16 después',
+ 'Envié las 6 fotos'
+]
+},
+
+{
+n:6, lvl:1, ready:true,
+title:'Elegir el lente: zoom y perspectiva',
+dur:'1 semana',
+obj:'Elegir el lente por razones de perspectiva, no de comodidad. Entender la compresión del teleobjetivo y la distorsión del gran angular, y saber dónde termina el zoom útil.',
+teoria:`
+<p>En la lección 1 conociste los cuatro lentes. Ahora vas a aprender a <strong>elegirlos</strong>, que es un asunto completamente distinto. La clave de esta lección es una sola idea, y es contraintuitiva:</p>
+<div class="note"><p><strong>El lente no cambia cuánto zoom tenés. Cambia la forma del mundo.</strong></p></div>
+
+<h3>Acercarse con los pies vs. acercarse con el zoom</h3>
+<p>Supongamos que querés que la cara de tu esposa llene el mismo espacio en el cuadro. Lo podés lograr de dos maneras: parándote cerca con el 1x, o parándote lejos con el 3x. El tamaño de la cara es igual. <strong>Pero las fotos son totalmente distintas</strong>, y la diferencia está en el fondo y en las proporciones de la cara.</p>
+<ul>
+<li><strong>Cerca con 1x:</strong> la nariz está mucho más cerca de la cámara que las orejas, así que sale proporcionalmente más grande. El fondo se ve lejano y chico. Resultado: cara distorsionada, fondo amplio.</li>
+<li><strong>Lejos con 3x:</strong> la diferencia de distancia entre nariz y orejas es despreciable, la cara sale con proporciones naturales, y el fondo se ve grande y cerca, como una pared detrás del sujeto. Esto es la <strong>compresión</strong>.</li>
+</ul>
+<p>Por eso el retrato clásico se hace con teleobjetivo: no para "acercarse", sino para que la cara tenga proporciones correctas y el fondo quede simplificado.</p>
+
+<h3>Guía práctica de los cuatro lentes</h3>
+<div class="tw"><table>
+<thead><tr><th>Lente</th><th>Fuerte en</th><th>Evitalo en</th></tr></thead>
+<tbody>
+<tr><td><strong>0.6x</strong> (13 mm)</td><td>Paisajes muy amplios, interiores chicos, primeros planos exagerados de un objeto con fondo enorme, grupos en espacio reducido</td><td>Retratos: te deforma la cara. Poca luz: no tiene estabilizador. Objetos a menos de 40 cm: no enfoca.</td></tr>
+<tr><td><strong>1x</strong> (24 mm)</td><td>Casi todo. La mejor calidad, el mejor rendimiento en poca luz, el mejor HDR</td><td>Retratos de cara muy cerca: distorsiona. Ahí retrocedé y usá 2x o 3x.</td></tr>
+<tr><td><strong>2x</strong> (recorte)</td><td>Retratos de medio cuerpo, detalles, encuadres más ordenados</td><td>Poca luz: el recorte descarta la ventaja del binning y aparece ruido.</td></tr>
+<tr><td><strong>3x</strong> (67 mm)</td><td>Retrato de cabeza y hombros, comprimir fondos, detalles a distancia, montañas lejanas</td><td>Interiores y noche: sensor chico, apertura f/2.4, mucho ruido. Ahí es mejor 1x y recortar.</td></tr>
+</tbody></table></div>
+
+<h3>Dónde termina el zoom útil</h3>
+<p>Tu teléfono deja llevar el zoom a 30x. La pregunta es hasta dónde sigue siendo una foto y no un dibujo.</p>
+<ul>
+<li><strong>Hasta 3x:</strong> óptica real. Usalo sin miedo.</li>
+<li><strong>De 3x a 6x:</strong> recorte del teleobjetivo más reconstrucción por IA. Aceptable para redes sociales con buena luz. Mirá los detalles finos, como el texto o las hojas: ahí se ve la invención.</li>
+<li><strong>Más de 10x:</strong> el algoritmo está inventando detalle a partir de muy pocos píxeles. Sirve para identificar algo, no para hacer una foto.</li>
+</ul>
+<p>Para tu uso, viajes y redes, mi recomendación es un límite práctico: <strong>no pases de 6x</strong>, y cuando necesites más, acercate.</p>
+
+<h3>La distorsión del gran angular y las personas</h3>
+<p>El 0.6x estira lo que está cerca de los bordes del cuadro. Si sacás una foto de grupo con el ultra gran angular y tu esposa queda en el borde, va a salir más ancha que en la realidad. Nunca es culpa de la persona. Es culpa de la proyección del lente. Solución: <strong>las personas van al centro del cuadro</strong> cuando usás 0.6x, o mejor, usá 1x y retrocedé.</p>
+`,
+eng:`
+<p><strong>La perspectiva no depende del lente, depende de la distancia.</strong> Esto es lo más importante de la lección y suele explicarse mal. El tamaño relativo entre dos objetos a distancias d1 y d2 de la cámara está dado por la razón d2/d1, y el lente no aparece en esa ecuación. Lo único que hace la focal es determinar el ángulo de visión, o sea cuánto recortás de esa proyección. La llamada "distorsión de gran angular" en un retrato es en realidad el resultado de estar cerca, y la "compresión de teleobjetivo" es el resultado de estar lejos. El lente sólo te obliga a esas distancias si querés un encuadre determinado.</p>
+
+<p><strong>Por qué 0.6x estira los bordes.</strong> Un rectilíneo de 13 mm proyecta la esfera de la escena sobre un plano. Para mantener las líneas rectas rectas, la escala transversal crece con la secante del ángulo respecto del eje óptico. A 60 grados del eje ese factor ya es 2. Un rostro cerca del borde se estira en la dirección radial. Samsung corrige parte de esto con un remapeo de coordenadas, lo que en la app suele llamarse corrección de forma, pero la corrección no puede ser perfecta: si endereza las caras, curva las líneas rectas del fondo. Es un compromiso matemático inevitable, no una carencia de software.</p>
+
+<p><strong>Qué gana y qué pierde el 2x.</strong> Recortar el centro del sensor de 50 MP a la mitad lineal deja 12.5 MP nativos, exactamente la resolución de salida. Con luz abundante el resultado es prácticamente indistinguible de un lente real de 48 mm. Con poca luz perdés el binning 4 a 1, y con él ese paso completo de relación señal a ruido que calculamos en la lección 2. De ahí la regla: 2x de día sí, 2x de noche no.</p>
+
+<p><strong>Qué hace el super resolution zoom.</strong> Entre 3x y 10x el ISP apila varios cuadros con micro-desplazamientos de la mano, que funcionan como un muestreo sub-píxel, y reconstruye una grilla de mayor resolución. Eso es reconstrucción legítima, con base física. Más allá, el sistema pasa a completar con un modelo generativo entrenado: las texturas que ves ya no provienen de fotones de esa escena, sino de un prior estadístico. Técnicamente sigue siendo una imagen, pero deja de ser una medición.</p>
+`,
+videos:[
+ {title:'Sacale el MÁXIMO a las CÁMARAS del Samsung S25 Ultra ¡MODO PRO!', url:'https://www.youtube.com/watch?v=YNzARxbKPcA',
+  meta:'YouTube · canal y duración sin verificar · teléfono Ultra, no S25+',
+  look:'Esta vez mirá sólo la parte de comparación entre lentes. Recordá que el Ultra tiene un 5x que vos no tenés: todo lo que muestre a 5x o más, en tu teléfono es zoom digital.'}
+],
+reads:[
+ {title:'Samsung Galaxy S25 Review (Amateur Photographer)', url:'https://amateurphotographer.com/review/samsung-galaxy-s25-review/',
+  meta:'Reseña técnica · en inglés · el S25 y el S25+ tienen cámaras idénticas',
+  look:'Mirá las fotos de ejemplo de cada lente. Es la mejor referencia de qué podés esperar de tu hardware exacto.'}
+],
+searches:[
+ {q:'compresion de fondo teleobjetivo vs gran angular retrato español', why:'La demostración clásica del mismo retrato a distintas focales. Es la clave de la lección.'},
+ {q:'distorsion gran angular caras foto grupal', why:'Ejemplos de caras estiradas en los bordes.'},
+ {q:'zoom digital celular hasta donde sirve comparativa', why:'Para calibrar tu propio límite práctico de zoom.'}
+],
+practica:[
+ 'El experimento más importante del nivel. Pedile a tu esposa que pose quieta. Sacá tres fotos donde <strong>su cara ocupe siempre el mismo tamaño en el cuadro</strong>: una con 1x acercándote mucho, una con 2x a distancia media, una con 3x bien alejado.',
+ 'Compará las tres. Mirá la nariz y el ancho de la cara, y mirá cuánto fondo entra. Vas a ver la compresión con tus propios ojos.',
+ 'Repetí el experimento con el gato si se deja, o con una botella sobre una mesa, que es más paciente.',
+ 'Prueba de distorsión: foto de grupo con 0.6x, con alguien a propósito en el borde del cuadro. Después la misma foto con 1x, retrocediendo. Compará el ancho de las caras del borde.',
+ 'Escala de zoom: elegí un cartel con texto legible a unos 30 metros. Sacá fotos a 3x, 6x, 10x, 20x y 30x. Ampliá cada una al 100% y anotá a partir de dónde el texto deja de ser texto.',
+ 'Prueba de poca luz: en un interior con luz de lámpara, sacá la misma escena con 1x y con 3x. Ampliá y compará el ruido. Vas a entender por qué 1x manda de noche.',
+ 'Primer plano exagerado con 0.6x: poné el teléfono a unos 40 cm de una flor o una piedra con un paisaje amplio detrás. Es el uso más creativo del ultra gran angular.',
+ 'A partir de hoy, antes de cada foto preguntate: ¿qué quiero que le pase al fondo? Esa pregunta elige el lente, no la comodidad.'
+],
+errores:[
+ ['Los retratos salen con la nariz grande y la cara ancha','Te acercaste mucho con 1x','Retroceder y usar 2x o 3x. La distancia es la causa, no el lente.'],
+ ['En la foto de grupo una persona del borde salió más ancha','Distorsión de proyección del 0.6x','Personas al centro, o usar 1x y retroceder.'],
+ ['El fondo del retrato está desordenado y compite','Usaste un lente amplio que mete mucho fondo','Usar 3x: comprime y simplifica el fondo sin tocar ningún ajuste.'],
+ ['Las fotos con 3x en interiores salen ruidosas y blandas','Sensor chico, f/2.4 y poca luz','Usar 1x y recortar después en la galería.'],
+ ['El 10x o 20x se ve como una acuarela','El algoritmo está inventando textura','No pasar de 6x; para más, acercarse físicamente.'],
+ ['Usás 2x de noche y hay más ruido que en 1x','El recorte descarta la ventaja del pixel binning','2x sólo con buena luz.']
+],
+tool:'grids',
+evaluacion:`
+<p><strong>Tarea.</strong> Tres series:</p>
+<ol>
+<li><strong>Serie de compresión</strong>, la más importante: el mismo rostro al mismo tamaño en el cuadro, con 1x, 2x y 3x. Decime cuál preferís y por qué.</li>
+<li><strong>Par de distorsión</strong>: foto de grupo con 0.6x y con 1x, con alguien en el borde.</li>
+<li><strong>Escala de zoom</strong>: tus fotos del cartel a 3x, 6x, 10x, 20x y 30x, y decime <strong>dónde pusiste tu límite personal</strong>.</li>
+</ol>
+<p>Esta evaluación cierra el Nivel 1. Cuando la entregues te doy además un balance del nivel completo, con los puntos a reforzar antes de pasar a luz y color.</p>
+`,
+checklist:[
+ 'Sé que la perspectiva la define la distancia, no el lente',
+ 'Uso 2x o 3x para retratos, no 1x de cerca',
+ 'Sé que el 3x comprime y simplifica el fondo',
+ 'Pongo a las personas al centro cuando uso 0.6x',
+ 'Tengo un límite personal de zoom y lo respeto',
+ 'Uso 1x cuando hay poca luz',
+ 'Envié las tres series'
+]
+},
+
+/* ================= NIVEL 2 ================= */
+{n:7, lvl:2, ready:false, title:'Luz I: dura, suave y su dirección', dur:'1 semana',
+ obj:'Leer la luz antes de disparar: reconocer luz dura y suave, identificar su dirección y aprovechar hora dorada, hora azul, mediodía y días nublados.',
+ preview:['Por qué el tamaño de la fuente de luz define la dureza de las sombras','Hora dorada y hora azul: qué pasa físicamente con la atmósfera','Cómo sacar buenas fotos al mediodía, que es cuando más vas a estar de viaje con la familia','El día nublado como softbox gigante gratis','Planificar la luz con apps cuando viajás']},
+
+{n:8, lvl:2, ready:false, title:'Luz II: contraluz y contraste', dur:'1 semana',
+ obj:'Dominar las situaciones de alto contraste: contraluz, siluetas, y saber cuándo el HDR del teléfono te ayuda y cuándo te arruina la foto.',
+ preview:['Contraluz controlado: el halo de luz en el pelo','Siluetas a propósito','Los límites reales del HDR de Samsung y cómo reconocer cuándo se pasó','Rellenar sombras sin flash, usando superficies del entorno','Por qué el flash del teléfono casi nunca es la respuesta']},
+
+{n:9, lvl:2, ready:false, title:'Color I: armonías', dur:'1 semana',
+ obj:'Elegir escenas y encuadres por su relación de color: complementarios, análogos y triádicos, y usar el color como estructura de la foto.',
+ preview:['La rueda de color y las tres armonías que más se usan','Buscar el color en el mundo en lugar de agregarlo al editar','El azul y el naranja: por qué funciona y por qué está tan gastado','Color dominante y color de acento','Herramienta interactiva: rueda de color con armonías']},
+
+{n:10, lvl:2, ready:false, title:'Color II: temperatura y balance de blancos', dur:'1 semana',
+ obj:'Entender la temperatura de color en Kelvin, saber qué hace el balance de blancos automático y corregir los colores falsos.',
+ preview:['Kelvin: por qué 3000 K es cálido y 7000 K es frío, al revés de lo que dice la intuición','Qué hace el balance de blancos automático y cuándo se equivoca','Luz mezclada: el caso más difícil, y muy común de noche en la ciudad','Decidir si querés corregir el color o conservar la sensación de la escena','Herramienta interactiva: simulador de balance de blancos']},
+
+{n:11, lvl:2, ready:false, title:'Modo Retrato a fondo', dur:'1 semana',
+ obj:'Controlar el desenfoque de fondo del modo Portrait, elegir la distancia y el lente correctos, y reconocer los errores de recorte del algoritmo.',
+ preview:['Qué hace realmente el modo Retrato: mapa de profundidad y desenfoque sintético','Distancia mínima y máxima para que funcione','Qué lente usar y con qué nivel de desenfoque','Los bordes: pelo, anteojos y manos, donde el algoritmo falla','Cuándo NO usar modo Retrato y conseguir el desenfoque de forma óptica']},
+
+{n:12, lvl:2, ready:false, title:'Personas y mascotas en movimiento', dur:'1 semana',
+ obj:'Sacar fotos nítidas de tu hija corriendo y del gato, y dirigir a tu familia para que las poses salgan naturales.',
+ preview:['Velocidad mínima de obturación con Camera Assistant: la configuración que resuelve el 90% de estas fotos','Ráfaga y selección posterior','Poses naturales: dar una acción en lugar de pedir una pose','Fotos de grupo: el problema de los ojos cerrados y cómo resolverlo','Fotografiar gatos: a su altura, con paciencia y con el enfoque bloqueado']},
+
+{n:13, lvl:2, ready:false, title:'Poca luz sin trípode', dur:'1 semana',
+ obj:'Sacar fotos usables de noche y en interiores apoyándote en el entorno, con el modo Night y el temporizador.',
+ preview:['Qué hace el modo Night: apilado de varias exposiciones','Apoyos improvisados: barandas, mochilas, paredes, el piso','Temporizador de 2 segundos: el trípode más barato del mundo','Interiores de museo, restaurante y casa','Dónde está el límite real sin trípode, y qué trípode barato compraría yo']},
+
+{n:14, lvl:2, ready:false, title:'Panorámica y otros modos', dur:'1 semana',
+ obj:'Hacer panorámicas correctas de paisaje y saber qué otros modos de tu teléfono te sirven de verdad.',
+ preview:['Técnica de barrido para que la panorámica no salga quebrada','Cuándo una panorámica es mejor que el 0.6x, y cuándo no','Single Take: qué es y para qué sirve en viajes con chicos','Repaso de los modos disponibles, verificado en tu teléfono','Personalizar el orden de los modos en la app']},
+
+/* ================= NIVEL 3 ================= */
+{n:15, lvl:3, ready:false, title:'Modo Pro I: ISO y velocidad', dur:'1 semana',
+ obj:'Tomar control manual de la exposición entendiendo el triángulo reducido a dos variables de un teléfono.',
+ preview:['El triángulo de exposición cuando la apertura es fija','ISO: qué es realmente la ganancia y de dónde sale el ruido','Velocidad de obturación: congelar o dejar fluir el movimiento','Las reglas prácticas de velocidad mínima según el sujeto','Herramienta interactiva: simulador de exposición']},
+
+{n:16, lvl:3, ready:false, title:'Modo Pro II: color, foco e histograma', dur:'1 semana',
+ obj:'Usar balance de blancos manual, enfoque manual, histograma y medición selectiva en el modo Pro.',
+ preview:['Fijar el Kelvin para que una serie de fotos tenga color consistente','Enfoque manual y peaking: cuándo es mejor que el autofoco','Leer un histograma en 5 segundos','Medición puntual vs. matricial','Exponer para las luces: por qué conviene subexponer un poco']},
+
+{n:17, lvl:3, ready:false, title:'Fotografía computacional', dur:'1 semana',
+ obj:'Entender qué le hace tu teléfono a la foto entre el disparo y el archivo guardado, y decidir cuándo querés menos procesamiento.',
+ preview:['La cadena de procesamiento: del sensor al JPEG, paso por paso','Apilado multi-cuadro, HDR y reducción de ruido','Qué hace el ProVisual Engine y qué decide por vos','Cuándo el procesamiento te ayuda y cuándo te arruina la textura','Nitidez artificial: cómo reconocer el sobreprocesado']},
+
+{n:18, lvl:3, ready:false, title:'RAW: disparar con todos los datos', dur:'1 semana',
+ obj:'Entender qué es un archivo RAW, cuándo vale la pena, y disparar en RAW en tu S25+.',
+ preview:['Qué contiene un DNG y qué se descarta al guardar un JPEG','12 bits vs 8 bits: el margen real de recuperación','RAW del modo Pro vs. Expert RAW: no son lo mismo','Verificación en tu teléfono de que Expert RAW funciona con tu versión','Gestión de espacio: cuánto ocupa una salida en RAW en 256 GB']},
+
+{n:19, lvl:3, ready:false, title:'Edición I: la Galería de Samsung', dur:'1 semana',
+ obj:'Editar bien sin salir del teléfono: recorte, tono, color y las funciones de Galaxy AI, sin llegar al resultado artificial.',
+ preview:['El orden correcto de edición: enderezar, recortar, tono, color, nitidez','Qué controles usar y cuáles ignorar','Photo Assist y borrador de objetos: hasta dónde son honestos','Editar para redes sin destruir la foto','Antes y después: cuándo parar']},
+
+{n:20, lvl:3, ready:false, title:'Edición II: apps gratuitas y revelado RAW', dur:'1 semana',
+ obj:'Revelar un RAW en el teléfono con herramientas gratuitas y elegir tu app de edición.',
+ preview:['Tabla comparativa de software: costo verificado, dificultad, soporte RAW','Revelado básico de un DNG paso a paso','Curvas y color selectivo, explicados desde cero','Por qué no necesitás pagar una suscripción todavía','Recomendación final para tu perfil']},
+
+/* ================= NIVEL 4 ================= */
+{n:21, lvl:4, ready:false, title:'Paisaje de viaje', dur:'1 semana',
+ obj:'Trabajar un lugar de forma completa: planificar la luz, cubrir la escena con varios lentes y armar una secuencia que cuente el viaje.',
+ preview:['Planificar la luz de un lugar antes de llegar','Cubrir una escena: general, medio, detalle','Primer plano fuerte: la receta del paisaje que funciona','Agua, cielo y montaña: los tres casos difíciles','Editar una serie con coherencia']},
+
+{n:22, lvl:4, ready:false, title:'Retrato avanzado', dur:'1 semana',
+ obj:'Hacer retratos de tu familia con luz elegida a propósito y con el lugar como parte del relato.',
+ preview:['Luz de ventana: el estudio gratis que tenés en tu casa','Retrato ambiental: la persona y su lugar','Dirigir a la familia sin que se sientan fotografiados','Retrato de tu hija a distintas edades y con distintas energías','Manos, miradas y el segundo antes o después de la pose']},
+
+{n:23, lvl:4, ready:false, title:'Noche avanzada', dur:'1 semana',
+ obj:'Llevar la fotografía nocturna al límite de lo que permite tu teléfono sin trípode, con Pro y Expert RAW.',
+ preview:['Exposiciones largas apoyando el teléfono','Luces de ciudad, agua y reflejos','Personas de noche sin flash','Qué se puede y qué no se puede sin trípode, con números','Revelado nocturno: ruido y color']},
+
+{n:24, lvl:4, ready:false, title:'Edición en computadora, gratis', dur:'1 semana',
+ obj:'Montar un flujo de trabajo gratuito en tu computadora personal, con respaldo y organización.',
+ preview:['Pasar las fotos del teléfono a la compu sin perder calidad','Revelado RAW con software libre','Organización y nombres de archivo que sirvan en 5 años','Estrategia de respaldo: la regla 3-2-1 aplicada a un caso real','Exportar para redes, para imprimir y para archivo']},
+
+{n:25, lvl:4, ready:false, title:'Encontrar tu estilo', dur:'1 semana',
+ obj:'Definir una paleta y un criterio propios, y aprender a descartar, que es la habilidad más difícil.',
+ preview:['Qué es un estilo y cómo se construye a partir de decisiones repetidas','Paleta consistente para tu perfil de Instagram','Armar tus propios ajustes preestablecidos','Selección crítica: de 200 fotos a 12','Mirar tu propio trabajo con distancia']},
+
+{n:26, lvl:4, ready:false, title:'🏆 Proyecto final', dur:'2 semanas',
+ obj:'Producir una serie terminada de un viaje o una salida: paisajes y retratos, editados con criterio y con una secuencia pensada.',
+ preview:['Un proyecto de entre 10 y 15 fotos con unidad de estilo','Debe incluir paisaje, retrato y detalle','Al menos una foto en poca luz y una revelada desde RAW','Un texto corto tuyo explicando las decisiones','Evaluación completa con la rúbrica y balance de todo el curso']}
+];
+
+const TOOLS = [
+  {id:'expo',  em:'🎚️', name:'Simulador de exposición', desc:'ISO y velocidad de obturación, y su efecto real en brillo, ruido y movimiento.', les:'Lecciones 3 y 15'},
+  {id:'color', em:'🎨', name:'Rueda de color', desc:'Armonías complementarias, análogas y triádicas sobre la rueda.', les:'Lección 9'},
+  {id:'wb',    em:'🌡️', name:'Balance de blancos', desc:'Temperatura de la luz contra temperatura de la cámara, en Kelvin.', les:'Lección 10'},
+  {id:'grids', em:'📐', name:'Cuadrículas de composición', desc:'Cargá una foto tuya y superponé tercios, proporción áurea, diagonales y recorte 9:16.', les:'Lecciones 4, 5 y 6'},
+  {id:'check', em:'✅', name:'Checklist antes de disparar', desc:'Repaso rápido para paisaje y para retrato, antes de apretar el botón.', les:'Todo el curso'}
+];
+
+const CHECKS = {
+  paisaje:[
+    '¿Está limpio el lente?',
+    '¿Cuál es el tema de esta foto? Decilo en una línea.',
+    '¿Está derecho el horizonte?',
+    '¿Decidí a propósito si el horizonte va arriba o abajo?',
+    '¿Revisé los cuatro bordes buscando intrusos?',
+    '¿Hay algo interesante en el primer plano?',
+    '¿Probé otra altura de cámara?',
+    '¿Hay una línea que lleve el ojo al sujeto?',
+    '¿Elegí el lente por la perspectiva que quiero, no por comodidad?',
+    '¿Necesito compensar la exposición para esta escena?',
+    '¿Vale la pena disparar en 50 MP o en RAW acá?',
+    '¿Saqué también una versión vertical?'
+  ],
+  retrato:[
+    '¿Está limpio el lente?',
+    '¿Estoy a la altura de los ojos del sujeto?',
+    '¿Estoy usando 2x o 3x en lugar de 1x de cerca?',
+    '¿De dónde viene la luz y le pega bien en la cara?',
+    '¿El fondo está limpio o al menos simplificado?',
+    '¿Enfoqué en el ojo más cercano?',
+    '¿Bloqueé AE/AF midiendo en la cara?',
+    '¿Hay contraluz que me esté oscureciendo el rostro?',
+    '¿Le di algo que hacer en lugar de pedirle una pose?',
+    '¿Dejé espacio del lado hacia donde mira?',
+    '¿Saqué varias, incluyendo el momento antes y después de la pose?',
+    '¿Revisé que nadie tenga los ojos cerrados?'
+  ]
+};
+</script>
+<script>
+/* ============================================================
+   ENFOQUE — lógica de la app
+   ============================================================ */
+const KEY = 'enfoque.v1';
+const DEF = {done:{}, checks:{}, grades:{}, tools:{}, theme:'dark'};
+let S = load();
+
+function load(){
+  try{
+    const raw = localStorage.getItem(KEY);
+    if(!raw) return JSON.parse(JSON.stringify(DEF));
+    const o = JSON.parse(raw);
+    return Object.assign(JSON.parse(JSON.stringify(DEF)), o);
+  }catch(e){ return JSON.parse(JSON.stringify(DEF)); }
+}
+function save(){
+  try{ localStorage.setItem(KEY, JSON.stringify(S)); }
+  catch(e){ /* modo privado o almacenamiento bloqueado: la app sigue funcionando */ }
+}
+const $  = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+let toastT;
+function toast(msg){
+  const t = $('#toast'); t.textContent = msg; t.classList.add('on');
+  clearTimeout(toastT); toastT = setTimeout(()=>t.classList.remove('on'), 2200);
+}
+
+/* ---------- tema ---------- */
+function applyTheme(){
+  document.documentElement.setAttribute('data-theme', S.theme === 'light' ? 'light' : 'dark');
+  const m = document.querySelector('meta[name=theme-color]');
+  if(m) m.setAttribute('content', S.theme === 'light' ? '#f6f7f9' : '#0d0f12');
+}
+$('#theme').onclick = ()=>{ S.theme = S.theme === 'light' ? 'dark' : 'light'; save(); applyTheme(); };
+applyTheme();
+
+/* ---------- navegación ---------- */
+let cur = 'curso', stack = [];
+function go(page, opt){
+  stack.push(cur);
+  show(page, opt);
+}
+function show(page, opt){
+  cur = page;
+  $$('.page').forEach(p=>p.classList.remove('on'));
+  $('#p-' + page).classList.add('on');
+  $$('.nav button').forEach(b=>b.classList.toggle('on', b.dataset.go === page));
+  const deep = (page === 'leccion' || page === 'tool');
+  $('#back').style.display = deep ? 'grid' : 'none';
+  if(page === 'curso'){ $('#title').textContent = 'Enfoque'; renderCurso(); }
+  if(page === 'tools'){ $('#title').textContent = 'Herramientas'; renderTools(); }
+  if(page === 'estado'){ $('#title').textContent = 'Estado del curso'; renderEstado(); }
+  if(page === 'leccion'){ renderLeccion(opt); }
+  if(page === 'tool'){ renderTool(opt); }
+  window.scrollTo(0,0);
+}
+$$('.nav button').forEach(b=> b.onclick = ()=>{ stack = []; show(b.dataset.go); });
+$('#back').onclick = ()=>{ const p = stack.pop() || 'curso'; show(p); };
+
+/* ---------- utilidades de progreso ---------- */
+const readyCount = LESSONS.filter(l=>l.ready).length;
+const doneCount  = ()=> Object.keys(S.done).filter(k=>S.done[k]).length;
+const nextLesson = ()=> LESSONS.find(l => l.ready && !S.done[l.n]) || LESSONS.find(l=>!S.done[l.n]);
+
+/* ============================================================
+   PANTALLA: CURSO
+   ============================================================ */
+function renderCurso(){
+  const d = doneCount(), pct = Math.round(d / LESSONS.length * 100);
+  const nx = nextLesson();
+  let h = `
+  <div class="hero">
+    <div class="k">Curso de fotografía · Galaxy S25+</div>
+    <div class="big">De cero a experto</div>
+    <p class="tiny" style="margin:4px 0 0">Paisajes y retratos. 26 lecciones en 4 niveles, a tu ritmo.</p>
+    <div class="stats">
+      <div class="stat"><b>${d}</b><span>Hechas</span></div>
+      <div class="stat"><b>${LESSONS.length}</b><span>Totales</span></div>
+      <div class="stat"><b>${pct}%</b><span>Avance</span></div>
+    </div>
+    <div class="bar" style="margin-top:13px"><i style="width:${pct}%"></i></div>
+  </div>`;
+
+  if(nx){
+    h += `<button class="btn" id="cont" style="margin-bottom:18px">
+      ${d ? 'Continuar' : 'Empezar'} · Lección ${nx.n}: ${esc(nx.title)} →</button>`;
+  }else{
+    h += `<div class="card" style="text-align:center"><p style="margin:0">🏆 Completaste todas las lecciones disponibles.</p></div>`;
+  }
+
+  LEVELS.forEach(lv=>{
+    const ls = LESSONS.filter(l=>l.lvl===lv.id);
+    const dn = ls.filter(l=>S.done[l.n]).length;
+    h += `<div class="lvl">
+      <span class="dot" style="background:var(--${lv.color})"></span>
+      <h2>${esc(lv.name)}</h2>
+      <small>${dn}/${ls.length}</small>
+    </div>
+    <p class="tiny" style="margin:-6px 0 10px 18px">${esc(lv.sub)}</p>`;
+    ls.forEach(l=>{
+      const done = !!S.done[l.n];
+      h += `<button class="les ${done?'done':''} ${l.ready?'':'soon'}" data-n="${l.n}">
+        <span class="num">${done?'✓':l.n}</span>
+        <span class="t"><b>${esc(l.title)}</b><span>${esc(l.dur)}${l.ready?'':' · se dicta más adelante'}</span></span>
+        <span class="go">›</span>
+      </button>`;
+    });
+  });
+
+  h += `<div class="card" style="margin-top:20px">
+    <h3 style="margin-top:0">Cómo usar esta app</h3>
+    <ul class="tiny" style="margin-bottom:0">
+      <li>Las lecciones del Nivel 1 están completas. Las demás muestran su objetivo y se van escribiendo a medida que avanzamos en el chat.</li>
+      <li>Al final de cada lección hay una tarea. Subí las fotos al chat y te las evalúo con la rúbrica de 6 criterios.</li>
+      <li>En <strong>Estado</strong> podés anotar tus notas y generar un resumen para retomar el curso en otra conversación.</li>
+      <li>Todo se guarda en tu teléfono. No se envía nada a ningún servidor.</li>
+    </ul>
+  </div>`;
+
+  $('#v-curso').innerHTML = h;
+  const c = $('#cont'); if(c) c.onclick = ()=>go('leccion', nx.n);
+  $$('#v-curso .les').forEach(b=> b.onclick = ()=>go('leccion', +b.dataset.n));
+}
+
+/* ============================================================
+   PANTALLA: LECCIÓN
+   ============================================================ */
+function renderLeccion(n){
+  const l = LESSONS.find(x=>x.n===n); if(!l) return;
+  const lv = LEVELS.find(v=>v.id===l.lvl);
+  $('#title').textContent = 'Lección ' + l.n;
+  const done = !!S.done[l.n];
+
+  let h = `<span class="pill ${lv.color}">${esc(lv.name)}</span>
+  <h2 style="margin:10px 0 4px">${esc(l.title)}</h2>
+  <p class="tiny" style="margin-bottom:16px">Duración estimada: ${esc(l.dur)}</p>
+
+  <div class="sec" open><div class="secbody" style="padding:15px">
+    <div class="eng" style="background:color-mix(in srgb,var(--accent) 11%,transparent);border-color:color-mix(in srgb,var(--accent) 32%,transparent)">
+      <div class="h" style="color:var(--accent)">🎯 Objetivo</div>
+      <p style="margin:0">${l.obj}</p>
+    </div>
+  </div></div>`;
+
+  if(!l.ready){
+    h += `<div class="card">
+      <h3 style="margin-top:0">Qué vamos a ver</h3>
+      <ul>${l.preview.map(p=>`<li>${p}</li>`).join('')}</ul>
+      <div class="note"><p>Esta lección todavía no está escrita. Se dicta cuando termines la anterior y entregues su evaluación: así el contenido se ajusta a lo que ya dominás y a lo que haya que reforzar.</p></div>
+    </div>`;
+    h += navBtns(l);
+    $('#v-leccion').innerHTML = h;
+    wireNav(l);
+    return;
+  }
+
+  h += sec('📖','Teoría', l.teoria + (l.eng ? `<div class="eng"><div class="h">⚙️ Para el ingeniero</div>${l.eng}</div>` : ''), true);
+
+  /* videos y lecturas */
+  let vh = '';
+  if(l.videos && l.videos.length){
+    vh += l.videos.map(v=>`<a class="vid" href="${v.url}" target="_blank" rel="noopener">
+      <b>▶ ${esc(v.title)}</b><div class="meta">${esc(v.meta)}</div>
+      <div class="look"><strong>Qué mirar:</strong> ${v.look}</div></a>`).join('');
+  }
+  if(l.reads && l.reads.length){
+    vh += l.reads.map(v=>`<a class="vid" href="${v.url}" target="_blank" rel="noopener">
+      <b>📄 ${esc(v.title)}</b><div class="meta">${esc(v.meta)}</div>
+      <div class="look"><strong>Qué mirar:</strong> ${v.look}</div></a>`).join('');
+  }
+  if(!l.videos.length && (!l.reads || !l.reads.length)){
+    vh += `<div class="note"><p>Para esta lección no encontré un video en español que fuera específico y confiable, así que no te doy ninguno inventado. Usá los términos de búsqueda de abajo.</p></div>`;
+  }
+  if(l.searches && l.searches.length){
+    vh += `<h3>Buscá vos en YouTube</h3>
+    <p class="tiny">Estos son los términos exactos que yo buscaría. Los pongo en lugar de inventar un enlace.</p>` +
+    l.searches.map(s=>`<div class="searchbox">${esc(s.why)}<span class="q">${esc(s.q)}</span></div>`).join('');
+  }
+  vh += `<p class="tiny" style="margin-top:12px">⚠️ No pude abrir las páginas de YouTube para confirmar canal y duración de cada video, así que esos datos van marcados como sin verificar. Los enlaces sí provienen de búsquedas reales; ninguno está inventado.</p>`;
+  h += sec('🎬','Videos', vh);
+
+  h += sec('📱','Práctica guiada en el S25+',
+    `<ol class="steps">${l.practica.map(p=>`<li>${p}</li>`).join('')}</ol>
+     <p class="tiny">Los nombres de menú van en inglés porque tu teléfono está en inglés. En One UI 8.5 algunos ajustes cambiaron de lugar: si no encontrás uno, mandame una captura y te digo dónde quedó.</p>`);
+
+  h += sec('⚠️','Errores comunes',
+    `<div class="tw"><table><thead><tr><th>Error</th><th>Causa</th><th>Solución</th></tr></thead><tbody>
+     ${l.errores.map(e=>`<tr><td><strong>${e[0]}</strong></td><td>${e[1]}</td><td>${e[2]}</td></tr>`).join('')}
+     </tbody></table></div>`);
+
+  if(l.tool){
+    const t = TOOLS.find(x=>x.id===l.tool);
+    h += sec('🎛️','Herramienta de apoyo',
+      `<button class="toolcard" id="lt" style="margin:0">
+        <span class="em">${t.em}</span>
+        <span class="t"><b>${esc(t.name)}</b><span>${esc(t.desc)}</span></span>
+        <span class="go" style="color:var(--faint);font-size:17px">›</span>
+      </button>`);
+  }
+
+  h += sec('🎓','Evaluación', l.evaluacion);
+
+  /* checklist */
+  const ck = S.checks[l.n] || [];
+  h += sec('✅','Resumen y checklist',
+    l.checklist.map((c,i)=>`<div class="ck">
+      <input type="checkbox" id="ck${l.n}_${i}" data-i="${i}" ${ck[i]?'checked':''}>
+      <label for="ck${l.n}_${i}">${c}</label></div>`).join(''), true);
+
+  h += `<div class="card">
+    <h3 style="margin-top:0">Tu nota en esta lección</h3>
+    <p class="tiny">Cuando te devuelva la evaluación en el chat, anotá acá el promedio. Sirve para el resumen del estado del curso.</p>
+    <div class="grade">
+      <select id="gsel">
+        <option value="">Sin nota todavía</option>
+        ${[10,9.5,9,8.5,8,7.5,7,6.5,6,5.5,5,4.5,4,3.5,3].map(v=>`<option value="${v}" ${S.grades[l.n]&&S.grades[l.n].nota==v?'selected':''}>${v}</option>`).join('')}
+      </select>
+    </div>
+    <textarea id="gnot" rows="3" placeholder="Puntos a reforzar, según la devolución...">${S.grades[l.n]?esc(S.grades[l.n].notas||''):''}</textarea>
+  </div>`;
+
+  h += `<button class="btn ${done?'ghost':''}" id="mark" style="margin-bottom:10px">
+    ${done ? '✓ Lección completada · toca para desmarcar' : 'Marcar lección como completada'}</button>`;
+  h += navBtns(l);
+
+  $('#v-leccion').innerHTML = h;
+
+  const tb = $('#tbl-lentes');
+  if(tb) tb.innerHTML = PHONE.lentes.map(r=>`<tr>${r.map((c,i)=>`<td>${i===0?'<strong>'+c+'</strong>':c}</td>`).join('')}</tr>`).join('');
+
+  $$('#v-leccion .ck input').forEach(inp=> inp.onchange = ()=>{
+    const arr = S.checks[l.n] || [];
+    arr[+inp.dataset.i] = inp.checked;
+    S.checks[l.n] = arr; save();
+  });
+  $('#gsel').onchange = e=>{
+    S.grades[l.n] = S.grades[l.n] || {};
+    S.grades[l.n].nota = e.target.value ? parseFloat(e.target.value) : null;
+    save(); toast(e.target.value ? 'Nota guardada: ' + e.target.value : 'Nota borrada');
+  };
+  $('#gnot').oninput = e=>{
+    S.grades[l.n] = S.grades[l.n] || {};
+    S.grades[l.n].notas = e.target.value; save();
+  };
+  $('#mark').onclick = ()=>{
+    S.done[l.n] = !S.done[l.n]; save();
+    toast(S.done[l.n] ? '✓ Lección ' + l.n + ' completada' : 'Lección ' + l.n + ' desmarcada');
+    renderLeccion(l.n);
+  };
+  const lt = $('#lt'); if(lt) lt.onclick = ()=>go('tool', l.tool);
+  wireNav(l);
+}
+function sec(ic, t, body, open){
+  return `<details class="sec" ${open?'open':''}><summary><span class="ic">${ic}</span>${t}</summary>
+    <div class="secbody">${body}</div></details>`;
+}
+function navBtns(l){
+  const prev = LESSONS.find(x=>x.n===l.n-1), next = LESSONS.find(x=>x.n===l.n+1);
+  return `<div class="row" style="margin-top:6px">
+    ${prev?`<button class="btn ghost" data-nav="${prev.n}">‹ Lección ${prev.n}</button>`:''}
+    ${next?`<button class="btn ghost" data-nav="${next.n}">Lección ${next.n} ›</button>`:''}
+  </div>`;
+}
+function wireNav(l){
+  $$('#v-leccion [data-nav]').forEach(b=> b.onclick = ()=>renderLeccion(+b.dataset.nav));
+}
+
+/* ============================================================
+   PANTALLA: HERRAMIENTAS
+   ============================================================ */
+function renderTools(){
+  let h = `<p class="tiny" style="margin-bottom:16px">Herramientas para entender los conceptos con las manos. Todas funcionan sin conexión.</p>`;
+  h += TOOLS.map(t=>`<button class="toolcard" data-t="${t.id}">
+    <span class="em">${t.em}</span>
+    <span class="t"><b>${esc(t.name)}</b><span>${esc(t.desc)}</span><span style="color:var(--faint);font-size:11.5px;margin-top:3px">${esc(t.les)}</span></span>
+    <span class="go" style="color:var(--faint);font-size:17px">›</span>
+  </button>`).join('');
+  $('#v-tools').innerHTML = h;
+  $$('#v-tools .toolcard').forEach(b=> b.onclick = ()=>go('tool', b.dataset.t));
+}
+
+/* Un AbortController por herramienta: al salir de una, se dan de baja sus
+   escuchas de resize. Sin esto, los listeners viejos siguen disparando sobre
+   canvas que ya no están en el DOM. */
+let toolAC = null;
+function renderTool(id){
+  const t = TOOLS.find(x=>x.id===id);
+  if(toolAC) toolAC.abort();
+  toolAC = new AbortController();
+  $('#title').textContent = t.name;
+  $('#v-tool').innerHTML = '';
+  ({expo:toolExpo, color:toolColor, wb:toolWB, grids:toolGrids, check:toolCheck})[id]($('#v-tool'));
+}
+/* ¿el canvas sigue vivo y con ancho medible? */
+const alive = el => !!(el && el.isConnected && el.clientWidth > 0);
+const onResize = fn => window.addEventListener('resize', fn, {passive:true, signal:toolAC.signal});
+
+/* ------------------------------------------------------------
+   HERRAMIENTA 1 · Simulador de exposición
+   ------------------------------------------------------------ */
+function toolExpo(root){
+  const ISOS = [50,100,200,400,800,1600,3200];
+  const SH = [
+    [1/2000,'1/2000'],[1/1000,'1/1000'],[1/500,'1/500'],[1/250,'1/250'],[1/125,'1/125'],
+    [1/60,'1/60'],[1/30,'1/30'],[1/15,'1/15'],[1/8,'1/8'],[1/4,'1/4'],[1/2,'1/2'],[1,'1 s']
+  ];
+  const SCENES = {
+    dia:      {n:'Día soleado',  iso:100, t:1/500, sky:['#3f7fd0','#a8cdf0'], amb:1.0},
+    nublado:  {n:'Nublado',      iso:200, t:1/250, sky:['#8894a2','#c3ccd6'], amb:0.9},
+    interior: {n:'Interior',     iso:800, t:1/60,  sky:['#4a4238','#6d6152'], amb:0.55},
+    noche:    {n:'Noche',        iso:3200,t:1/15,  sky:['#0b1020','#1d2740'], amb:0.3}
+  };
+  const MOT = {quieto:{n:'Quieto',v:0}, caminando:{n:'Caminando',v:1}, corriendo:{n:'Corriendo',v:3.2}};
+
+  let st = {scene:'dia', iso:1, sh:2, ev:0, mot:'quieto', ois:true};
+
+  root.innerHTML = `
+  <p class="tiny">Tu S25+ tiene apertura fija, así que sólo podés mover <strong>dos</strong> variables: ISO y velocidad. Cada paso que ganás en brillo lo pagás en ruido o en movimiento borroso. Movelas y mirá el precio.</p>
+  <canvas class="cv" id="ex-cv" style="aspect-ratio:4/3"></canvas>
+  <div class="readout">
+    <div><b id="ex-st">0.0</b><span>Pasos EV</span></div>
+    <div><b id="ex-no">—</b><span>Ruido</span></div>
+    <div><b id="ex-bl">—</b><span>Movimiento</span></div>
+  </div>
+  <div class="verdict" id="ex-vd"></div>
+  <div class="ctl"><div class="lab">Escena<span id="ex-scn"></span></div>
+    <div class="seg" id="ex-scene">${Object.keys(SCENES).map(k=>`<button data-k="${k}" class="${k==='dia'?'on':''}">${SCENES[k].n}</button>`).join('')}</div></div>
+  <div class="ctl"><div class="lab">ISO (ganancia)<span id="ex-isov">100</span></div>
+    <input type="range" id="ex-iso" min="0" max="${ISOS.length-1}" step="1" value="1"></div>
+  <div class="ctl"><div class="lab">Velocidad de obturación<span id="ex-shv">1/500</span></div>
+    <input type="range" id="ex-sh" min="0" max="${SH.length-1}" step="1" value="2"></div>
+  <div class="ctl"><div class="lab">Compensación de exposición<span id="ex-evv">0.0 EV</span></div>
+    <input type="range" id="ex-ev" min="-2" max="2" step="0.5" value="0"></div>
+  <div class="ctl"><div class="lab">Movimiento del sujeto<span></span></div>
+    <div class="seg" id="ex-mot">${Object.keys(MOT).map(k=>`<button data-k="${k}" class="${k==='quieto'?'on':''}">${MOT[k].n}</button>`).join('')}</div></div>
+  <div class="chips"><button class="chip on" id="ex-ois">📿 Estabilizador OIS activado</button></div>
+  <div class="row" style="margin-bottom:14px">
+    <button class="btn ghost sm" id="ex-auto">Volver al valor correcto</button>
+  </div>
+  <div class="card"><h3 style="margin-top:0">Cómo leerlo</h3>
+  <ul class="tiny" style="margin-bottom:0">
+    <li><strong>Pasos EV</strong> es cuánto te desviaste de la exposición correcta para esa escena. Cada paso duplica o divide a la mitad la luz.</li>
+    <li>Subir el ISO no "agrega luz": <strong>amplifica</strong> la señal que ya capturaste, y amplifica el ruido con ella.</li>
+    <li>La velocidad sí cambia cuánta luz entra, pero por debajo de 1/60 tu mano empieza a mover el teléfono, y el sujeto se mueve mucho antes que eso.</li>
+    <li>Apagá el OIS y probá 1/8: eso es lo que sacarías con una cámara sin estabilizador.</li>
+  </ul></div>`;
+
+  const cv = $('#ex-cv'), ctx = cv.getContext('2d');
+  function fit(){
+    if(!alive(cv)) return;
+    const dpr = Math.min(window.devicePixelRatio||1, 2);
+    const w = cv.clientWidth, h = w*3/4;
+    cv.width = Math.round(w*dpr); cv.height = Math.round(h*dpr);
+    draw();
+  }
+  function calc(){
+    const sc = SCENES[st.scene], iso = ISOS[st.iso], t = SH[st.sh][0];
+    const stops = Math.log2(iso/sc.iso) + Math.log2(t/sc.t) + st.ev;
+    const noise = Math.min(1, Math.pow(iso/100, 0.62)/10);
+    const mblur = MOT[st.mot].v * t * 260;
+    const lim = st.ois ? 1/15 : 1/60;
+    const hblur = t > lim ? Math.min(9, (t/lim - 1) * 2.4 + 0.7) : 0;
+    return {sc, iso, t, stops, noise, mblur, hblur};
+  }
+  function draw(){
+    const W = cv.width, H = cv.height, k = W/600;
+    if(!W || !H) return;
+    const {sc, stops, noise, mblur, hblur} = calc();
+    const off = document.createElement('canvas'); off.width = W; off.height = H;
+    const o = off.getContext('2d');
+
+    /* cielo */
+    const g = o.createLinearGradient(0,0,0,H*0.62);
+    g.addColorStop(0, sc.sky[0]); g.addColorStop(1, sc.sky[1]);
+    o.fillStyle = g; o.fillRect(0,0,W,H*0.64);
+    if(st.scene==='dia'){ o.fillStyle='rgba(255,246,214,.95)'; o.beginPath(); o.arc(W*0.8,H*0.16,26*k,0,7); o.fill(); }
+    if(st.scene==='noche'){ o.fillStyle='rgba(255,255,255,.85)';
+      for(let i=0;i<70;i++){ o.fillRect(Math.random()*W, Math.random()*H*0.55, 1.6*k, 1.6*k); } }
+    /* colinas */
+    o.fillStyle = st.scene==='noche' ? '#141b2a' : 'rgba(40,64,48,.75)';
+    o.beginPath(); o.moveTo(0,H*0.64);
+    o.quadraticCurveTo(W*0.25,H*0.42,W*0.52,H*0.63);
+    o.quadraticCurveTo(W*0.78,H*0.48,W,H*0.6); o.lineTo(W,H*0.64); o.closePath(); o.fill();
+    /* suelo */
+    const g2 = o.createLinearGradient(0,H*0.62,0,H);
+    const gc = st.scene==='noche' ? ['#1b2130','#0d1017'] : st.scene==='interior' ? ['#6b5c48','#3d3427'] : ['#6f8d54','#41562f'];
+    g2.addColorStop(0,gc[0]); g2.addColorStop(1,gc[1]);
+    o.fillStyle = g2; o.fillRect(0,H*0.62,W,H*0.38);
+    /* referencia: parche gris medio y carta blanca */
+    o.fillStyle = '#7d7d7d'; o.fillRect(W*0.05,H*0.8,W*0.12,H*0.1);
+    o.fillStyle = '#f2f2f2'; o.fillRect(W*0.19,H*0.8,W*0.12,H*0.1);
+
+    /* sujeto, con desenfoque de movimiento */
+    const n = mblur > 0.6 ? Math.min(26, Math.ceil(mblur)) : 1;
+    for(let i=0;i<n;i++){
+      const dx = (i - (n-1)/2) * (mblur/Math.max(1,n)) ;
+      o.globalAlpha = 1/n;
+      subject(o, W*0.52 + dx, H*0.63, k);
+    }
+    o.globalAlpha = 1;
+
+    /* brillo + ruido, píxel a píxel */
+    const f = Math.pow(2, stops);
+    const img = o.getImageData(0,0,W,H), d = img.data;
+    for(let i=0;i<d.length;i+=4){
+      for(let c=0;c<3;c++){
+        let v = d[i+c]/255 * f;
+        if(v > 1) v = 1;            /* recorte de luces: lo que se quema, se pierde */
+        if(noise>0.02){
+          const lum = v;
+          const amp = noise * (1 - 0.55*lum) * 0.5;
+          v += (Math.random()+Math.random()+Math.random()-1.5)/1.5 * amp;
+        }
+        d[i+c] = Math.max(0, Math.min(255, v*255));
+      }
+    }
+    o.putImageData(img,0,0);
+
+    ctx.clearRect(0,0,W,H);
+    ctx.filter = hblur>0 ? 'blur(' + (hblur*k).toFixed(2) + 'px)' : 'none';
+    ctx.drawImage(off,0,0);
+    ctx.filter = 'none';
+
+    /* lecturas */
+    const noiseLbl = noise<0.06?'Bajo':noise<0.13?'Visible':noise<0.22?'Alto':'Muy alto';
+    const blurTot = mblur + hblur*2;
+    const blurLbl = blurTot<1.5?'Nítido':blurTot<5?'Leve':blurTot<14?'Notorio':'Arruinado';
+    $('#ex-st').textContent = (stops>0?'+':'') + stops.toFixed(1);
+    $('#ex-no').textContent = noiseLbl;
+    $('#ex-bl').textContent = blurLbl;
+    const vd = $('#ex-vd');
+    let cls='ok', msg='';
+    if(Math.abs(stops) > 2.4){ cls='bad'; msg = stops>0 ? 'Sobreexpuesta: las luces se quemaron y esa información no se recupera ni en RAW.' : 'Subexpuesta: al aclararla en edición vas a levantar todo el ruido de las sombras.'; }
+    else if(Math.abs(stops) > 1.1){ cls='warn'; msg = stops>0 ? 'Bastante clara. En RAW se rescata; en JPEG ya perdés detalle en las luces.' : 'Bastante oscura. Recuperable, pero con costo de ruido.'; }
+    else if(blurTot > 14){ cls='bad'; msg = 'Exposición razonable, pero la foto está movida. La nitidez no se arregla después.'; }
+    else if(noise > 0.22){ cls='warn'; msg = 'Exposición razonable, pero el ISO está muy alto y se come la textura fina.'; }
+    else if(blurTot > 5){ cls='warn'; msg = 'Casi. Hay algo de movimiento: subí la velocidad y compensá con ISO.'; }
+    else { cls='ok'; msg = 'Buena combinación: exposición correcta, nítida y con ruido controlado.'; }
+    vd.className = 'verdict ' + cls; vd.textContent = msg;
+    $('#ex-isov').textContent = ISOS[st.iso];
+    $('#ex-shv').textContent = SH[st.sh][1];
+    $('#ex-evv').textContent = (st.ev>0?'+':'') + st.ev.toFixed(1) + ' EV';
+    $('#ex-scn').textContent = 'correcta: ISO ' + sc.iso + ' · ' + SH.find(s=>Math.abs(s[0]-sc.t)<1e-9)[1];
+  }
+  function subject(o,x,y,k){
+    o.fillStyle = '#20252c';
+    o.beginPath(); o.arc(x, y-46*k, 11*k, 0, 7); o.fill();               /* cabeza */
+    o.beginPath(); o.moveTo(x-13*k,y); o.lineTo(x-7*k,y-34*k);
+    o.lineTo(x+7*k,y-34*k); o.lineTo(x+13*k,y); o.closePath(); o.fill(); /* cuerpo */
+  }
+
+  $$('#ex-scene button').forEach(b=> b.onclick = ()=>{
+    st.scene = b.dataset.k; $$('#ex-scene button').forEach(x=>x.classList.toggle('on',x===b));
+    const sc = SCENES[st.scene];
+    st.iso = ISOS.indexOf(sc.iso); st.sh = SH.findIndex(s=>Math.abs(s[0]-sc.t)<1e-9); st.ev = 0;
+    $('#ex-iso').value = st.iso; $('#ex-sh').value = st.sh; $('#ex-ev').value = 0;
+    draw();
+  });
+  $$('#ex-mot button').forEach(b=> b.onclick = ()=>{
+    st.mot = b.dataset.k; $$('#ex-mot button').forEach(x=>x.classList.toggle('on',x===b)); draw();
+  });
+  $('#ex-iso').oninput = e=>{ st.iso = +e.target.value; draw(); };
+  $('#ex-sh').oninput  = e=>{ st.sh  = +e.target.value; draw(); };
+  $('#ex-ev').oninput  = e=>{ st.ev  = +e.target.value; draw(); };
+  $('#ex-ois').onclick = e=>{ st.ois = !st.ois; e.target.classList.toggle('on', st.ois);
+    e.target.textContent = st.ois ? '📿 Estabilizador OIS activado' : '📿 Estabilizador OIS apagado'; draw(); };
+  $('#ex-auto').onclick = ()=>{
+    const sc = SCENES[st.scene];
+    st.iso = ISOS.indexOf(sc.iso); st.sh = SH.findIndex(s=>Math.abs(s[0]-sc.t)<1e-9); st.ev = 0;
+    $('#ex-iso').value = st.iso; $('#ex-sh').value = st.sh; $('#ex-ev').value = 0; draw();
+  };
+  onResize(fit);
+  fit();
+}
+
+/* ------------------------------------------------------------
+   HERRAMIENTA 2 · Rueda de color
+   ------------------------------------------------------------ */
+function toolColor(root){
+  const HARM = {
+    comp:   {n:'Complementarios', off:[0,180],          d:'Máximo contraste. Es el azul y naranja de los atardeceres, y el verde y magenta de una flor en el pasto.'},
+    anal:   {n:'Análogos',        off:[0,-30,30],       d:'Vecinos en la rueda. Da armonía y calma: la paleta natural de un bosque o de una hora azul.'},
+    tri:    {n:'Triádicos',       off:[0,120,240],      d:'Tres colores equidistantes. Vibrante pero equilibrado. Difícil de encontrar en la naturaleza, común en arquitectura.'},
+    split:  {n:'Compl. dividido', off:[0,150,210],      d:'Como complementarios pero más suave. Muy útil en retrato: piel cálida contra dos fríos.'}
+  };
+  let hue = 28, harm = 'comp';
+
+  root.innerHTML = `
+  <p class="tiny">El color no se agrega al editar: se <strong>busca</strong> al encuadrar. Elegí un color de la rueda y mirá con qué otros se relaciona bien.</p>
+  <canvas class="cv" id="cw" style="aspect-ratio:1/1;background:transparent;border:0"></canvas>
+  <div class="seg" id="c-harm">${Object.keys(HARM).map(k=>`<button data-k="${k}" class="${k==='comp'?'on':''}">${HARM[k].n}</button>`).join('')}</div>
+  <div class="ctl"><div class="lab">Tono base<span id="c-hv">28°</span></div>
+    <input type="range" id="c-hue" min="0" max="359" value="28"></div>
+  <div class="sw" id="c-sw"></div>
+  <div class="verdict" id="c-d"></div>
+  <canvas class="cv" id="c-prev" style="aspect-ratio:16/9"></canvas>
+  <p class="tiny">Arriba, una escena simulada con la paleta aplicada: fondo, sujeto y acento.</p>
+  <div class="card"><h3 style="margin-top:0">Dónde encontrar estas armonías en la vida real</h3>
+  <div class="tw"><table><thead><tr><th>Armonía</th><th>Dónde aparece</th></tr></thead><tbody>
+  <tr><td><strong>Complementarios</strong></td><td>Atardecer: cielo naranja y sombras azules. Un techo de tejas contra el cielo.</td></tr>
+  <tr><td><strong>Análogos</strong></td><td>Bosque en otoño, hora azul, un campo de trigo. La paleta más fácil de conseguir.</td></tr>
+  <tr><td><strong>Triádicos</strong></td><td>Ferias, mercados, puertas pintadas, ropa de chicos.</td></tr>
+  <tr><td><strong>Compl. dividido</strong></td><td>Retrato: piel cálida con fondo verde y azul. La receta más segura para retratar a tu familia al aire libre.</td></tr>
+  </tbody></table></div></div>`;
+
+  const cw = $('#cw'), cx = cw.getContext('2d');
+  const pv = $('#c-prev'), px = pv.getContext('2d');
+
+  function hsl(h,s,l){ return 'hsl(' + ((h%360)+360)%360 + ' ' + s + '% ' + l + '%)'; }
+  function hex(h,s,l){
+    s/=100; l/=100;
+    const a = s*Math.min(l,1-l);
+    const f = n=>{ const k=(n+h/30)%12; const c=l-a*Math.max(-1,Math.min(k-3,Math.min(9-k,1)));
+      return Math.round(255*c).toString(16).padStart(2,'0'); };
+    return '#'+f(0)+f(8)+f(4);
+  }
+  function fit(){
+    if(!alive(cw)) return;
+    const dpr = Math.min(window.devicePixelRatio||1,2);
+    const w = cw.clientWidth;
+    cw.width = cw.height = Math.round(w*dpr);
+    pv.width = Math.round(pv.clientWidth*dpr); pv.height = Math.round(pv.clientWidth*9/16*dpr);
+    draw();
+  }
+  function draw(){
+    const W = cw.width, R = W/2;
+    if(!W) return;
+    const cxp = R, cyp = R, ro = R*0.93, ri = R*0.58;
+    cx.clearRect(0,0,W,W);
+    for(let a=0;a<360;a++){
+      const s = (a-90.6)*Math.PI/180, e = (a-89)*Math.PI/180;
+      const grd = cx.createRadialGradient(cxp,cyp,ri,cxp,cyp,ro);
+      grd.addColorStop(0, hsl(a,38,62)); grd.addColorStop(1, hsl(a,88,52));
+      cx.beginPath(); cx.arc(cxp,cyp,ro,s,e); cx.arc(cxp,cyp,ri,e,s,true); cx.closePath();
+      cx.fillStyle = grd; cx.fill();
+    }
+    const offs = HARM[harm].off;
+    offs.forEach((o,i)=>{
+      const a = (hue+o-90)*Math.PI/180;
+      const r = (ro+ri)/2;
+      const x = cxp+Math.cos(a)*r, y = cyp+Math.sin(a)*r;
+      cx.beginPath(); cx.arc(x,y,R*0.085,0,7);
+      cx.fillStyle = hex(hue+o,85,52); cx.fill();
+      cx.lineWidth = R*0.022; cx.strokeStyle = i===0 ? '#fff' : 'rgba(255,255,255,.75)'; cx.stroke();
+      cx.beginPath(); cx.moveTo(cxp,cyp); cx.lineTo(x,y);
+      cx.strokeStyle = 'rgba(255,255,255,.22)'; cx.lineWidth = R*0.008; cx.stroke();
+    });
+    /* centro */
+    cx.beginPath(); cx.arc(cxp,cyp,ri*0.92,0,7);
+    cx.fillStyle = hex(hue,85,52); cx.fill();
+    cx.font = (R*0.13)+'px ui-monospace,Menlo,monospace'; cx.textAlign='center'; cx.textBaseline='middle';
+    cx.fillStyle = '#00000099'; cx.fillText(hex(hue,85,52).toUpperCase(), cxp, cyp);
+
+    $('#c-sw').innerHTML = offs.map((o,i)=>{
+      const c = hex(hue+o,85,52);
+      return `<div class="s"><div class="c" style="background:${c}"></div>
+        <div class="n">${c.toUpperCase()}<br>${Math.round(((hue+o)%360+360)%360)}°</div></div>`;
+    }).join('');
+    $('#c-d').textContent = HARM[harm].d;
+    $('#c-hv').textContent = hue + '°';
+    prev(offs);
+  }
+  function prev(offs){
+    const W = pv.width, H = pv.height;
+    const bg = hex(hue+offs[offs.length-1],55,30);
+    const g = px.createLinearGradient(0,0,0,H);
+    g.addColorStop(0, hex(hue+offs[offs.length-1],62,42));
+    g.addColorStop(1, bg);
+    px.fillStyle = g; px.fillRect(0,0,W,H);
+    px.fillStyle = hex(hue+(offs[1]||0),50,22); px.fillRect(0,H*0.68,W,H*0.32);
+    px.fillStyle = hex(hue,88,54);
+    px.beginPath(); px.arc(W*0.33,H*0.52,H*0.1,0,7); px.fill();
+    px.fillRect(W*0.29,H*0.6,W*0.08,H*0.16);
+    px.fillStyle = hex(hue+(offs[2]||offs[1]||180),90,58);
+    px.fillRect(W*0.68,H*0.4,W*0.05,H*0.28);
+    px.fillStyle = 'rgba(255,255,255,.5)';
+    px.font = (H*0.075)+'px ' + getComputedStyle(document.body).fontFamily;
+    px.textAlign = 'left'; px.textBaseline='top';
+    px.fillText('escena simulada', W*0.03, H*0.05);
+  }
+  $('#c-hue').oninput = e=>{ hue = +e.target.value; draw(); };
+  $$('#c-harm button').forEach(b=> b.onclick = ()=>{
+    harm = b.dataset.k; $$('#c-harm button').forEach(x=>x.classList.toggle('on',x===b)); draw(); });
+  function pick(ev){
+    const r = cw.getBoundingClientRect();
+    const t = ev.touches ? ev.touches[0] : ev;
+    const x = t.clientX - r.left - r.width/2, y = t.clientY - r.top - r.height/2;
+    if(Math.hypot(x,y) < r.width*0.26) return;
+    hue = Math.round((Math.atan2(y,x)*180/Math.PI + 90 + 360) % 360);
+    $('#c-hue').value = hue; draw();
+  }
+  cw.addEventListener('click', pick);
+  cw.addEventListener('touchmove', e=>{ e.preventDefault(); pick(e); }, {passive:false});
+  onResize(fit);
+  fit();
+}
+
+/* ------------------------------------------------------------
+   HERRAMIENTA 3 · Balance de blancos
+   ------------------------------------------------------------ */
+function toolWB(root){
+  const PRE = [[1900,'Vela'],[2700,'Lámpara cálida'],[3400,'Tungsteno'],[4200,'Fluorescente'],
+               [5500,'Luz de día'],[6500,'Nublado'],[7800,'Sombra'],[9500,'Hora azul']];
+  let lightK = 5500, camK = 5500;
+
+  root.innerHTML = `
+  <p class="tiny">El balance de blancos no cambia la luz: le dice a la cámara <strong>de qué color suponer que es la luz</strong>. Si le mentís, todo se tiñe. Mové los dos controles y mirá qué pasa.</p>
+  <canvas class="cv" id="wb-cv" style="aspect-ratio:4/3"></canvas>
+  <div class="readout">
+    <div><b id="wb-l">5500K</b><span>Luz real</span></div>
+    <div><b id="wb-c">5500K</b><span>Cámara</span></div>
+    <div><b id="wb-d">0</b><span>Diferencia</span></div>
+  </div>
+  <div class="verdict" id="wb-vd"></div>
+  <div class="ctl"><div class="lab">🔆 Temperatura de la luz real<span id="wb-lv">5500 K</span></div>
+    <input type="range" id="wb-lk" min="1800" max="10000" step="100" value="5500">
+    <div class="chips" style="margin-top:9px" id="wb-pre">${PRE.map(p=>`<button class="chip" data-k="${p[0]}">${p[1]}</button>`).join('')}</div></div>
+  <div class="ctl"><div class="lab">📷 Balance de blancos de la cámara<span id="wb-cv2">5500 K</span></div>
+    <input type="range" id="wb-ck" min="1800" max="10000" step="100" value="5500"></div>
+  <div class="row" style="margin-bottom:14px">
+    <button class="btn ghost sm" id="wb-match">Igualar cámara a la luz</button>
+    <button class="btn ghost sm" id="wb-auto">Simular automático</button>
+  </div>
+  <div class="card"><h3 style="margin-top:0">La regla que cuesta recordar</h3>
+  <div class="tw"><table><thead><tr><th>Si la cámara está en...</th><th>La foto sale...</th></tr></thead><tbody>
+  <tr><td><strong>Más Kelvin que la luz</strong></td><td>Más <strong>cálida</strong>, anaranjada</td></tr>
+  <tr><td><strong>Menos Kelvin que la luz</strong></td><td>Más <strong>fría</strong>, azulada</td></tr>
+  <tr><td><strong>Igual que la luz</strong></td><td>Neutra: el blanco sale blanco</td></tr>
+  </tbody></table></div>
+  <p class="tiny" style="margin-bottom:0">Parece al revés, y por eso se olvida. El número que ponés en la cámara describe la luz que <em>asumís</em>; si asumís luz más cálida de la real, la cámara compensa de menos y el resultado queda cálido.</p>
+  </div>`;
+
+  const cv = $('#wb-cv'), ctx = cv.getContext('2d');
+  function k2rgb(k){
+    const t = k/100; let r,g,b;
+    if(t<=66){ r=255; g=99.47*Math.log(t)-161.12; }
+    else { r=329.7*Math.pow(t-60,-0.1332); g=288.12*Math.pow(t-60,-0.0755); }
+    if(t>=66) b=255; else if(t<=19) b=0; else b=138.52*Math.log(t-10)-305.04;
+    const c = v=>Math.max(0,Math.min(255,v));
+    return [c(r),c(g),c(b)];
+  }
+  function fit(){
+    if(!alive(cv)) return;
+    const dpr = Math.min(window.devicePixelRatio||1,2);
+    const w = cv.clientWidth; cv.width = Math.round(w*dpr); cv.height = Math.round(w*3/4*dpr);
+    draw();
+  }
+  function draw(){
+    const W = cv.width, H = cv.height;
+    if(!W || !H) return;
+    const off = document.createElement('canvas'); off.width=W; off.height=H;
+    const o = off.getContext('2d');
+    /* escena neutra: pared, carta de grises, piel, camisa blanca, planta */
+    o.fillStyle = '#9aa0a6'; o.fillRect(0,0,W,H);
+    o.fillStyle = '#b8bcc0'; o.fillRect(0,0,W,H*0.55);
+    o.fillStyle = '#7a8087'; o.fillRect(0,H*0.55,W,H*0.02);
+    /* carta de grises */
+    const gs = ['#ffffff','#c8c8c8','#7d7d7d','#3c3c3c','#111111'];
+    gs.forEach((c,i)=>{ o.fillStyle=c; o.fillRect(W*(0.06+i*0.075), H*0.68, W*0.07, H*0.2); });
+    /* persona: camisa blanca (referencia de blanco) + piel (referencia de tono cálido) */
+    o.fillStyle = '#ecedef'; o.beginPath(); o.moveTo(W*0.585,H*0.55);
+    o.lineTo(W*0.648,H*0.40); o.lineTo(W*0.798,H*0.40); o.lineTo(W*0.861,H*0.55); o.closePath(); o.fill();
+    o.fillStyle = '#b8825f'; o.fillRect(W*0.699,H*0.355,W*0.048,H*0.055);              /* cuello */
+    o.fillStyle = '#3a2b22'; o.beginPath(); o.ellipse(W*0.723,H*0.268,W*0.078,H*0.112,0,0,7); o.fill(); /* pelo */
+    o.fillStyle = '#c99574'; o.beginPath(); o.ellipse(W*0.723,H*0.292,W*0.066,H*0.094,0,0,7); o.fill(); /* rostro */
+    /* planta */
+    o.fillStyle = '#4c7a45';
+    for(let i=0;i<5;i++){ o.beginPath(); o.ellipse(W*0.22,H*0.33, W*0.055, H*0.018, i*0.63, 0, 7); o.fill(); }
+    o.fillStyle = '#6b4a34'; o.fillRect(W*0.20,H*0.36,W*0.04,H*0.18);
+
+    /* aplicar luz y balance */
+    const L = k2rgb(lightK), C = k2rgb(camK);
+    const Ln = L.map(v=>v/L[1]), Cn = C.map(v=>v/C[1]);
+    const gain = [Ln[0]/Cn[0], 1, Ln[2]/Cn[2]];
+    const img = o.getImageData(0,0,W,H), d = img.data;
+    for(let i=0;i<d.length;i+=4){
+      for(let c=0;c<3;c++){ d[i+c] = Math.max(0,Math.min(255, d[i+c]*gain[c])); }
+    }
+    o.putImageData(img,0,0);
+    ctx.clearRect(0,0,W,H); ctx.drawImage(off,0,0);
+    /* etiquetas */
+    ctx.fillStyle='rgba(0,0,0,.45)'; ctx.fillRect(0,0,W,H*0.09);
+    ctx.fillStyle='#fff'; ctx.textAlign='left'; ctx.textBaseline='middle';
+    ctx.font = (H*0.05)+'px ui-monospace,Menlo,monospace';
+    ctx.fillText('luz ' + lightK + 'K  ·  cámara ' + camK + 'K', W*0.02, H*0.045);
+
+    const dk = camK - lightK;
+    $('#wb-l').textContent = lightK + 'K'; $('#wb-c').textContent = camK + 'K';
+    $('#wb-d').textContent = (dk>0?'+':'') + dk;
+    $('#wb-lv').textContent = lightK + ' K'; $('#wb-cv2').textContent = camK + ' K';
+    const vd = $('#wb-vd');
+    if(Math.abs(dk) < 250){ vd.className='verdict ok'; vd.textContent = 'Balance correcto: el blanco sale blanco y la piel sale con su color real.'; }
+    else if(dk > 0){ vd.className='verdict warn'; vd.textContent = 'Imagen cálida, corrida al naranja. A veces es un error; otras veces es exactamente lo que querés en un atardecer.'; }
+    else { vd.className='verdict warn'; vd.textContent = 'Imagen fría, corrida al azul. Útil para transmitir noche o frío, malo para la piel.'; }
+    if(Math.abs(dk) > 2800){ vd.className='verdict bad';
+      vd.textContent = 'Desvío muy grande: el color ya no es corregible sin dañar la piel. Acá es donde el RAW te salva.'; }
+  }
+  $('#wb-lk').oninput = e=>{ lightK = +e.target.value; draw(); };
+  $('#wb-ck').oninput = e=>{ camK = +e.target.value; draw(); };
+  $$('#wb-pre button').forEach(b=> b.onclick = ()=>{
+    lightK = +b.dataset.k; $('#wb-lk').value = lightK;
+    $$('#wb-pre button').forEach(x=>x.classList.toggle('on',x===b)); draw(); });
+  $('#wb-match').onclick = ()=>{ camK = lightK; $('#wb-ck').value = camK; draw(); toast('Cámara igualada a la luz'); };
+  $('#wb-auto').onclick = ()=>{
+    /* el automático acierta pero tiende a neutralizar de más, sobre todo en luz muy cálida */
+    camK = Math.round(lightK - (lightK-5200)*0.28);
+    $('#wb-ck').value = camK; draw();
+    toast('Así suele resolver el automático: neutraliza de más');
+  };
+  onResize(fit);
+  fit();
+}
+
+/* ------------------------------------------------------------
+   HERRAMIENTA 4 · Cuadrículas de composición
+   ------------------------------------------------------------ */
+function toolGrids(root){
+  let img = null, rot = 0;
+  const G = {tercios:true, aurea:false, diag:false, centro:false, v916:false};
+  const NAMES = {tercios:'Tercios', aurea:'Prop. áurea', diag:'Diagonales', centro:'Centro', v916:'Recorte 9:16'};
+
+  root.innerHTML = `
+  <p class="tiny">Cargá una foto tuya y verificá la composición: si el sujeto cae en un cruce, si el horizonte está derecho, y cómo quedaría recortada para historias.</p>
+  <label class="filein" for="g-file">📷 Toca para elegir una foto de tu galería<br><span class="tiny">No se sube a ningún lado: se procesa en tu teléfono.</span></label>
+  <input type="file" id="g-file" accept="image/*" style="display:none">
+  <canvas class="cv" id="g-cv" style="aspect-ratio:4/3"></canvas>
+  <div class="chips" style="margin-top:12px" id="g-chips">
+    ${Object.keys(G).map(k=>`<button class="chip ${G[k]?'on':''}" data-k="${k}">${NAMES[k]}</button>`).join('')}
+  </div>
+  <div class="ctl"><div class="lab">Rotación, para enderezar el horizonte<span id="g-rv">0.0°</span></div>
+    <input type="range" id="g-rot" min="-6" max="6" step="0.2" value="0"></div>
+  <div class="row" style="margin-bottom:14px">
+    <button class="btn ghost sm" id="g-reset">Reiniciar</button>
+  </div>
+  <div class="card"><h3 style="margin-top:0">Qué chequear</h3>
+  <ul class="tiny" style="margin-bottom:0">
+    <li><strong>Tercios:</strong> ¿el sujeto cae sobre una línea o un cruce, o quedó en el centro por inercia?</li>
+    <li><strong>Proporción áurea:</strong> una variante más apretada de los tercios. Si tu foto funciona mejor con esta, tu sujeto quiere estar más cerca del borde.</li>
+    <li><strong>Diagonales:</strong> ¿hay líneas de la escena que coincidan con las diagonales del cuadro? Si sí, la foto tiene estructura.</li>
+    <li><strong>Rotación:</strong> movela hasta que el horizonte quede derecho. Lo que marque el control es cuánto estaba torcido.</li>
+    <li><strong>Recorte 9:16:</strong> lo que queda dentro del rectángulo es lo que va a ver alguien en una historia.</li>
+  </ul></div>`;
+
+  const cv = $('#g-cv'), ctx = cv.getContext('2d');
+  function fit(){
+    if(!alive(cv)) return;
+    const dpr = Math.min(window.devicePixelRatio||1,2);
+    const w = cv.clientWidth;
+    const ar = img ? img.height/img.width : 3/4;
+    cv.width = Math.round(w*dpr); cv.height = Math.round(w*ar*dpr);
+    cv.style.aspectRatio = img ? (img.width+'/'+img.height) : '4/3';
+    draw();
+  }
+  function demo(o,W,H){
+    const g = o.createLinearGradient(0,0,0,H*0.6);
+    g.addColorStop(0,'#2b6bb5'); g.addColorStop(1,'#e8b46a');
+    o.fillStyle=g; o.fillRect(0,0,W,H*0.62);
+    o.fillStyle='#fff3cf'; o.beginPath(); o.arc(W*0.7,H*0.45,H*0.07,0,7); o.fill();
+    o.fillStyle='#2f4536'; o.beginPath(); o.moveTo(0,H*0.62);
+    o.quadraticCurveTo(W*0.3,H*0.45,W*0.6,H*0.62); o.lineTo(W,H*0.55); o.lineTo(W,H*0.62); o.closePath(); o.fill();
+    o.fillStyle='#1d2a20'; o.fillRect(0,H*0.62,W,H*0.38);
+    o.fillStyle='#0f1712'; o.beginPath(); o.moveTo(W*0.3,H); o.lineTo(W*0.46,H*0.63);
+    o.lineTo(W*0.54,H*0.63); o.lineTo(W*0.8,H); o.closePath(); o.fill();
+    o.fillStyle='#e9edf2'; o.font=(H*0.045)+'px '+getComputedStyle(document.body).fontFamily;
+    o.textAlign='center'; o.fillText('escena de ejemplo — cargá tu foto', W/2, H*0.94);
+  }
+  function draw(){
+    const W = cv.width, H = cv.height;
+    if(!W || !H) return;
+    ctx.clearRect(0,0,W,H);
+    ctx.save();
+    ctx.translate(W/2,H/2);
+    const rad = rot*Math.PI/180;
+    const sc = Math.abs(Math.cos(rad)) + Math.abs(Math.sin(rad))*(H/W > 1 ? H/W : W/H);
+    ctx.scale(sc,sc); ctx.rotate(rad); ctx.translate(-W/2,-H/2);
+    if(img) ctx.drawImage(img,0,0,W,H); else demo(ctx,W,H);
+    ctx.restore();
+
+    const lw = Math.max(1, W/560);
+    ctx.lineWidth = lw;
+    const line=(x1,y1,x2,y2,col)=>{ ctx.strokeStyle=col; ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke(); };
+    const halo='rgba(0,0,0,.35)', main='rgba(255,255,255,.72)';
+    if(G.tercios){
+      [1/3,2/3].forEach(f=>{
+        ctx.lineWidth=lw*2.4; line(0,H*f,W,H*f,halo); line(W*f,0,W*f,H,halo);
+        ctx.lineWidth=lw;      line(0,H*f,W,H*f,main); line(W*f,0,W*f,H,main);
+      });
+      [[1/3,1/3],[2/3,1/3],[1/3,2/3],[2/3,2/3]].forEach(p=>{
+        ctx.beginPath(); ctx.arc(W*p[0],H*p[1],lw*4,0,7);
+        ctx.fillStyle='rgba(240,167,42,.95)'; ctx.fill();
+      });
+    }
+    if(G.aurea){
+      const phi=0.382;
+      [phi,1-phi].forEach(f=>{
+        ctx.setLineDash([lw*6,lw*5]);
+        ctx.lineWidth=lw*2.2; line(0,H*f,W,H*f,halo); line(W*f,0,W*f,H,halo);
+        ctx.lineWidth=lw;     line(0,H*f,W,H*f,'rgba(56,178,166,.9)'); line(W*f,0,W*f,H,'rgba(56,178,166,.9)');
+        ctx.setLineDash([]);
+      });
+    }
+    if(G.diag){
+      ctx.lineWidth=lw*2.2; line(0,0,W,H,halo); line(W,0,0,H,halo);
+      ctx.lineWidth=lw;     line(0,0,W,H,'rgba(255,255,255,.55)'); line(W,0,0,H,'rgba(255,255,255,.55)');
+    }
+    if(G.centro){
+      ctx.lineWidth=lw*2.2; line(W/2,0,W/2,H,halo); line(0,H/2,W,H/2,halo);
+      ctx.lineWidth=lw;     line(W/2,0,W/2,H,'rgba(239,93,107,.8)'); line(0,H/2,W,H/2,'rgba(239,93,107,.8)');
+    }
+    if(G.v916){
+      const cw2 = Math.min(W, H*9/16), ch = Math.min(H, W*16/9);
+      const x = (W-cw2)/2, y = (H-ch)/2;
+      ctx.fillStyle='rgba(0,0,0,.45)';
+      ctx.fillRect(0,0,x,H); ctx.fillRect(x+cw2,0,W-x-cw2,H);
+      ctx.fillRect(x,0,cw2,y); ctx.fillRect(x,y+ch,cw2,H-y-ch);
+      ctx.lineWidth=lw*1.6; ctx.strokeStyle='rgba(240,167,42,.95)'; ctx.strokeRect(x,y,cw2,ch);
+    }
+    $('#g-rv').textContent = (rot>0?'+':'') + rot.toFixed(1) + '°';
+  }
+  $('#g-file').onchange = e=>{
+    const f = e.target.files && e.target.files[0]; if(!f) return;
+    const url = URL.createObjectURL(f);
+    const i = new Image();
+    i.onload = ()=>{ img = i; fit(); toast('Foto cargada'); URL.revokeObjectURL(url); };
+    i.onerror = ()=> toast('No pude abrir esa imagen');
+    i.src = url;
+  };
+  $$('#g-chips button').forEach(b=> b.onclick = ()=>{
+    G[b.dataset.k] = !G[b.dataset.k]; b.classList.toggle('on', G[b.dataset.k]); draw(); });
+  $('#g-rot').oninput = e=>{ rot = +e.target.value; draw(); };
+  $('#g-reset').onclick = ()=>{ rot=0; $('#g-rot').value=0; img=null; fit(); };
+  onResize(fit);
+  fit();
+}
+
+/* ------------------------------------------------------------
+   HERRAMIENTA 5 · Checklist antes de disparar
+   ------------------------------------------------------------ */
+function toolCheck(root){
+  let tab = 'paisaje';
+  S.tools.check = S.tools.check || {paisaje:[], retrato:[]};
+
+  function render(){
+    const list = CHECKS[tab], st = S.tools.check[tab] || [];
+    const n = list.filter((_,i)=>st[i]).length;
+    root.innerHTML = `
+    <p class="tiny">Un repaso de 20 segundos antes de apretar el botón. Con el tiempo se vuelve automático y ya no lo vas a necesitar.</p>
+    <div class="seg" id="k-tab">
+      <button data-k="paisaje" class="${tab==='paisaje'?'on':''}">🏞️ Paisaje</button>
+      <button data-k="retrato" class="${tab==='retrato'?'on':''}">👤 Retrato</button>
+    </div>
+    <div class="card">
+      <div class="lab" style="display:flex;justify-content:space-between;font-size:13px;font-weight:640;margin-bottom:9px">
+        <span>${n} de ${list.length} revisados</span><span style="color:var(--accent)">${Math.round(n/list.length*100)}%</span></div>
+      <div class="bar"><i style="width:${n/list.length*100}%"></i></div>
+    </div>
+    <div class="card">
+      ${list.map((c,i)=>`<div class="ck">
+        <input type="checkbox" id="k${i}" data-i="${i}" ${st[i]?'checked':''}>
+        <label for="k${i}">${c}</label></div>`).join('')}
+    </div>
+    <button class="btn ghost" id="k-reset">Reiniciar checklist</button>`;
+    $$('#k-tab button').forEach(b=> b.onclick = ()=>{ tab = b.dataset.k; render(); });
+    $$('#v-tool .ck input').forEach(inp=> inp.onchange = ()=>{
+      const a = S.tools.check[tab] || []; a[+inp.dataset.i] = inp.checked;
+      S.tools.check[tab] = a; save(); render();
+    });
+    $('#k-reset').onclick = ()=>{ S.tools.check[tab] = []; save(); render(); toast('Checklist reiniciado'); };
+  }
+  render();
+}
+
+/* ============================================================
+   PANTALLA: ESTADO DEL CURSO
+   ============================================================ */
+function renderEstado(){
+  const d = doneCount(), pct = Math.round(d/LESSONS.length*100);
+  const graded = LESSONS.filter(l=>S.grades[l.n] && S.grades[l.n].nota);
+  const avg = graded.length ? (graded.reduce((a,l)=>a+S.grades[l.n].nota,0)/graded.length) : null;
+
+  let h = `<div class="hero">
+    <div class="k">Estado del curso</div>
+    <div class="big">${pct}% completado</div>
+    <div class="stats">
+      <div class="stat"><b>${d}/${LESSONS.length}</b><span>Lecciones</span></div>
+      <div class="stat"><b>${avg!==null?avg.toFixed(1):'—'}</b><span>Promedio</span></div>
+      <div class="stat"><b>${graded.length}</b><span>Evaluadas</span></div>
+    </div>
+    <div class="bar" style="margin-top:13px"><i style="width:${pct}%"></i></div>
+  </div>`;
+
+  if(avg !== null && avg < 7){
+    h += `<div class="note warn"><p>Tu promedio está por debajo de 7. Según lo que acordamos, te voy a proponer repetir alguna tarea antes de avanzar, pero la decisión final de seguir es tuya.</p></div>`;
+  }
+
+  h += `<h3>Detalle por lección</h3><div class="tw"><table>
+    <thead><tr><th>#</th><th>Lección</th><th>Estado</th><th>Nota</th></tr></thead><tbody>`;
+  LESSONS.forEach(l=>{
+    const g = S.grades[l.n];
+    h += `<tr><td>${l.n}</td><td>${esc(l.title)}</td>
+      <td>${S.done[l.n]?'<span style="color:var(--ok)">✓ hecha</span>':(l.ready?'<span class="muted">pendiente</span>':'<span class="muted">por dictar</span>')}</td>
+      <td>${g&&g.nota?g.nota:'—'}</td></tr>`;
+  });
+  h += `</tbody></table></div>`;
+
+  const refuerzo = LESSONS.filter(l=>S.grades[l.n] && S.grades[l.n].notas).map(l=>({n:l.n,t:l.title,x:S.grades[l.n].notas}));
+  if(refuerzo.length){
+    h += `<h3>Puntos a reforzar</h3>`;
+    refuerzo.forEach(r=>{ h += `<div class="card"><b style="font-size:14px">Lección ${r.n} · ${esc(r.t)}</b>
+      <p class="tiny" style="margin:6px 0 0">${esc(r.x)}</p></div>`; });
+  }
+
+  h += `<h3>Retomar en otra conversación</h3>
+  <p class="tiny">Este texto resume tu avance. Copialo y pegámelo al empezar un chat nuevo: con eso retomo el curso justo donde lo dejaste, sin que tengas que explicarme nada.</p>
+  <textarea id="es-tx" rows="9" readonly>${esc(resumen())}</textarea>
+  <div class="row" style="margin:10px 0 22px">
+    <button class="btn" id="es-copy">Copiar resumen</button>
+  </div>
+  <h3>Datos</h3>
+  <div class="card">
+    <p class="tiny">Tu progreso se guarda sólo en este teléfono, en el almacenamiento del navegador. Si borrás los datos del sitio o desinstalás la app, se pierde. Copiá el resumen de arriba de vez en cuando como respaldo.</p>
+    <button class="btn ghost sm" id="es-wipe" style="width:100%">Borrar todo mi progreso</button>
+  </div>`;
+
+  $('#v-estado').innerHTML = h;
+  $('#es-copy').onclick = async ()=>{
+    const tx = resumen();
+    try{ await navigator.clipboard.writeText(tx); toast('Resumen copiado'); }
+    catch(e){ const t = $('#es-tx'); t.removeAttribute('readonly'); t.select(); t.setSelectionRange(0,99999);
+      try{ document.execCommand('copy'); toast('Resumen copiado'); }catch(e2){ toast('Seleccionalo y copialo a mano'); }
+      t.setAttribute('readonly','readonly'); }
+  };
+  $('#es-wipe').onclick = ()=>{
+    if(confirm('¿Borrar todo tu progreso, notas y checklists? No se puede deshacer.')){
+      S = JSON.parse(JSON.stringify(DEF)); save(); applyTheme(); toast('Progreso borrado'); renderEstado();
+    }
+  };
+}
+function resumen(){
+  const d = doneCount();
+  const graded = LESSONS.filter(l=>S.grades[l.n] && S.grades[l.n].nota);
+  const avg = graded.length ? (graded.reduce((a,l)=>a+S.grades[l.n].nota,0)/graded.length).toFixed(1) : 'sin notas';
+  let t = 'ESTADO DEL CURSO DE FOTOGRAFIA (app Enfoque)\n';
+  t += 'Telefono: Samsung Galaxy S25+ (256 GB), One UI 8.5, sistema en ingles.\n';
+  t += 'Ritmo: unas 2 h por semana, sin fecha limite. Sin tripode ni accesorios.\n';
+  t += 'Uso: viajes en familia y redes sociales. Sujetos: esposa, hija y un gato.\n';
+  t += 'Edicion: solo opciones gratuitas. Tengo computadora personal disponible.\n\n';
+  t += 'Lecciones completadas: ' + d + ' de ' + LESSONS.length + '. Promedio: ' + avg + '\n\n';
+  const done = LESSONS.filter(l=>S.done[l.n]);
+  if(done.length){
+    t += 'HECHAS:\n';
+    done.forEach(l=>{ const g=S.grades[l.n];
+      t += '- L' + l.n + ' ' + l.title + (g&&g.nota?(' (nota '+g.nota+')'):'') + '\n'; });
+    t += '\n';
+  }
+  const nx = nextLesson();
+  if(nx) t += 'SIGUIENTE: Leccion ' + nx.n + ' - ' + nx.title + '\n\n';
+  const ref = LESSONS.filter(l=>S.grades[l.n] && S.grades[l.n].notas);
+  if(ref.length){
+    t += 'A REFORZAR:\n';
+    ref.forEach(l=>{ t += '- L' + l.n + ': ' + S.grades[l.n].notas + '\n'; });
+  }
+  return t;
+}
+
+/* ---------- arranque ---------- */
+renderCurso();
+if('serviceWorker' in navigator){
+  window.addEventListener('load', ()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+}
+</script>
+</body>
+</html>
